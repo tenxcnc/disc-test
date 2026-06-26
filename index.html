@@ -94,6 +94,9 @@
     padding:6px 13px; border-radius:99px;}
   .step-tag:first-child{margin-top:4px;}
   .bars-cap{color:var(--sub); font-size:12.5px; margin:0 0 10px; text-align:center;}
+  .mail-note{margin-top:16px; background:rgba(108,123,255,.12); border:1px solid rgba(108,123,255,.35);
+    border-radius:14px; padding:14px 16px; font-size:13.5px; line-height:1.6; color:#cdd3f2; text-align:center;}
+  .mail-note b{color:#fff;}
   .job-block{background:var(--card2); border:1px solid var(--line); border-radius:13px; padding:13px 15px; margin-top:11px;}
   .job-block:first-of-type{margin-top:2px;}
   .job-h{font-size:13.5px; font-weight:800; color:#cdd3f2; margin-bottom:7px;}
@@ -213,9 +216,9 @@
       </div>
     </div>
 
-    <!-- 이메일 받기 -->
-    <button class="btn" style="margin-top:14px;" id="emailBtn" onclick="emailMe()">📧 결과를 내 이메일로 받기</button>
-    <button class="btn secondary" style="margin-top:10px;" onclick="restart()">처음으로</button>
+    <!-- 이메일 안내 -->
+    <div class="mail-note" id="mailNote">📧 결과를 <b id="mailTo"></b> 으로 보냈습니다.<br>메일이 안 보이면 <b>스팸함</b>을 확인해 주세요.</div>
+    <button class="btn secondary" style="margin-top:12px;" onclick="restart()">처음으로</button>
     <div class="footer-note">본 결과는 DISC 행동유형 이론에 기반한 참고용 자료입니다.</div>
   </section>
 
@@ -317,6 +320,7 @@ let answers = new Array(24).fill(null);
 let cur = 0;
 let user = { name:"", email:"" };
 let lastResult = { top:null, score:null };
+let submitted = false;   // 중복 저장·발송 방지
 
 function $(id){ return document.getElementById(id); }
 function show(id){ ["intro","quiz","result"].forEach(s=>$(s).classList.toggle("hidden", s!==id)); window.scrollTo(0,0); }
@@ -328,7 +332,7 @@ function startTest(){
   if(!em){ toast("이메일을 입력해 주세요"); $("inEmail").focus(); return; }
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){ toast("올바른 이메일 형식이 아닙니다"); $("inEmail").focus(); return; }
   user={name:n, email:em};
-  cur=0; answers=new Array(24).fill(null);
+  cur=0; answers=new Array(24).fill(null); submitted=false;
   show("quiz"); renderQ();
 }
 
@@ -380,6 +384,7 @@ function renderResult(top, score){
   fillList("rStrength",t.strength); fillList("rWeak",t.weak);
   fillList("rJobStyle",t.job.style); fillList("rJobReport",t.job.report);
   fillList("rJobDoc",t.job.doc); fillList("rJobConflict",t.job.conflict);
+  $("mailTo").textContent=user.email||"";
   const chips=$("rChips"); chips.innerHTML="";
   t.chips.forEach(c=>{ const s=document.createElement("span"); s.className="chip"; s.textContent="#"+c; chips.appendChild(s); });
   // 막대 그래프
@@ -398,6 +403,8 @@ function renderResult(top, score){
 function fillList(id,arr){ const ul=$(id); ul.innerHTML=""; arr.forEach(x=>{ const li=document.createElement("li"); li.textContent=x; ul.appendChild(li); }); }
 
 function saveResult(top, score, sendMail){
+  if(submitted) return Promise.resolve();   // 이미 저장·발송했으면 중복 방지
+  submitted=true;
   const payload={
     name:user.name, email:user.email, type:top,
     D:score.D, I:score.I, S:score.S, C:score.C,
@@ -418,16 +425,6 @@ function saveResult(top, score, sendMail){
     toast("※ 메일 발송은 배포 후 동작합니다(설정 필요)");
   }
   return Promise.resolve();
-}
-
-// "결과를 내 이메일로 받기" 버튼
-function emailMe(){
-  if(!lastResult.top) return;
-  const btn=$("emailBtn"); const old=btn.innerHTML;
-  btn.disabled=true; btn.innerHTML='<span class="spin"></span> 보내는 중...';
-  Promise.resolve(saveResult(lastResult.top, lastResult.score, true)).finally(()=>{
-    setTimeout(()=>{ btn.disabled=false; btn.innerHTML="📧 결과를 다시 받기"; }, 1200);
-  });
 }
 
 // 이메일 본문(HTML) 생성 — 결과 화면과 동일한 내용
@@ -466,7 +463,7 @@ function buildEmailHtml(top, score){
   </div>`;
 }
 
-function restart(){ $("inName").value=""; $("inEmail").value=""; lastResult={top:null,score:null}; show("intro"); }
+function restart(){ $("inName").value=""; $("inEmail").value=""; lastResult={top:null,score:null}; submitted=false; show("intro"); }
 </script>
 </body>
 </html>
