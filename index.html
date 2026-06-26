@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>DISC 행동유형 진단</title>
+<style>
+  :root{
+    --d:#e2483d; --i:#f3b13b; --s:#3aa76d; --c:#3b78d8;
+    --bg:#0f1220; --card:#1b1f33; --card2:#232844;
+    --text:#f2f4fb; --sub:#a9b0cf; --line:#323860;
+    --accent:#6c7bff; --accent2:#8a63ff;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{margin:0; padding:0;}
+  body{
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
+    background:linear-gradient(160deg,#0f1220 0%,#161a2e 60%,#1a1530 100%);
+    color:var(--text); min-height:100vh;
+    display:flex; justify-content:center; align-items:flex-start;
+  }
+  .app{width:100%; max-width:520px; min-height:100vh; padding:20px 18px 40px; position:relative;}
+  .hidden{display:none !important;}
+
+  /* ===== 공통 ===== */
+  .badge{display:inline-flex; align-items:center; gap:6px; font-size:13px; color:var(--sub);
+    background:var(--card); border:1px solid var(--line); padding:6px 12px; border-radius:999px;}
+  h1{font-size:26px; line-height:1.3; margin:18px 0 8px; font-weight:800; letter-spacing:-.5px;}
+  h2{font-size:20px; margin:0 0 6px; font-weight:700;}
+  p.lead{color:var(--sub); font-size:15px; line-height:1.6; margin:0 0 18px;}
+  .btn{display:flex; align-items:center; justify-content:center; gap:8px; width:100%;
+    border:none; border-radius:16px; padding:17px 18px; font-size:16px; font-weight:700;
+    color:#fff; background:linear-gradient(135deg,var(--accent),var(--accent2));
+    cursor:pointer; transition:transform .08s ease, opacity .2s; box-shadow:0 8px 24px rgba(108,123,255,.3);}
+  .btn:active{transform:scale(.98);}
+  .btn.secondary{background:var(--card2); box-shadow:none; color:var(--text); border:1px solid var(--line);}
+  .btn[disabled]{opacity:.4; cursor:not-allowed;}
+  .field{margin:14px 0;}
+  .field label{display:block; font-size:13px; color:var(--sub); margin-bottom:7px; font-weight:600;}
+  .field input{width:100%; padding:15px 16px; border-radius:14px; border:1px solid var(--line);
+    background:var(--card); color:var(--text); font-size:16px; outline:none;}
+  .field input:focus{border-color:var(--accent);}
+
+  /* ===== 인트로 ===== */
+  .hero-card{background:var(--card); border:1px solid var(--line); border-radius:24px;
+    padding:26px 22px; margin-top:18px; box-shadow:0 12px 40px rgba(0,0,0,.35);}
+  .dots{display:flex; gap:8px; margin:20px 0;}
+  .dot{flex:1; text-align:center; padding:14px 4px; border-radius:14px; font-weight:800; font-size:18px; color:#fff;}
+  .dot small{display:block; font-size:11px; font-weight:600; opacity:.9; margin-top:3px;}
+  .dot.d{background:var(--d);} .dot.i{background:var(--i);} .dot.s{background:var(--s);} .dot.c{background:var(--c);}
+  .info{font-size:13px; color:var(--sub); line-height:1.7; margin-top:14px;
+    background:var(--card2); border-radius:14px; padding:14px 16px;}
+
+  /* ===== 설문 ===== */
+  .topbar{display:flex; align-items:center; gap:12px; margin-bottom:18px;}
+  .progress{flex:1; height:8px; background:var(--card2); border-radius:99px; overflow:hidden;}
+  .progress > i{display:block; height:100%; width:0; border-radius:99px;
+    background:linear-gradient(90deg,var(--accent),var(--accent2)); transition:width .3s;}
+  .qcount{font-size:13px; color:var(--sub); font-weight:700; min-width:48px; text-align:right;}
+  .qcard{background:var(--card); border:1px solid var(--line); border-radius:22px; padding:22px 18px;}
+  .qlabel{font-size:13px; color:var(--accent); font-weight:700; margin-bottom:6px;}
+  .qtitle{font-size:17px; font-weight:700; line-height:1.5; margin-bottom:18px; color:var(--text);}
+  .opts{display:flex; flex-direction:column; gap:11px;}
+  .opt{display:flex; align-items:center; gap:13px; padding:16px 16px; border-radius:15px;
+    border:1.5px solid var(--line); background:var(--card2); cursor:pointer; transition:all .15s;}
+  .opt:active{transform:scale(.99);}
+  .opt .mk{width:24px; height:24px; border-radius:50%; border:2px solid var(--sub); flex-shrink:0;
+    display:flex; align-items:center; justify-content:center; transition:all .15s;}
+  .opt .tx{font-size:16px; font-weight:600;}
+  .opt.sel{border-color:var(--accent); background:rgba(108,123,255,.14);}
+  .opt.sel .mk{border-color:var(--accent); background:var(--accent);}
+  .opt.sel .mk::after{content:''; width:9px; height:9px; border-radius:50%; background:#fff;}
+  .navrow{display:flex; gap:10px; margin-top:18px;}
+  .navrow .btn{width:auto; flex:1;}
+
+  /* ===== 결과 ===== */
+  .result-head{text-align:center; padding:14px 0 4px;}
+  .typeBig{font-size:64px; font-weight:900; line-height:1; margin:6px 0;}
+  .typeName{font-size:24px; font-weight:800; margin:4px 0 2px;}
+  .typeSub{color:var(--sub); font-size:14px;}
+  .bars{margin:22px 0; display:flex; flex-direction:column; gap:12px;}
+  .bar{display:flex; align-items:center; gap:12px;}
+  .bar .k{width:74px; font-weight:800; font-size:14px;}
+  .bar .track{flex:1; height:24px; background:var(--card2); border-radius:99px; overflow:hidden;}
+  .bar .track > i{display:block; height:100%; border-radius:99px; width:0; transition:width .9s cubic-bezier(.2,.8,.2,1);}
+  .bar .v{width:34px; text-align:right; font-weight:800; font-size:14px;}
+  .sec{background:var(--card); border:1px solid var(--line); border-radius:18px; padding:18px 18px; margin:13px 0;}
+  .sec h3{margin:0 0 12px; font-size:15px; display:flex; align-items:center; gap:8px;}
+  .sec h3 .ic{width:22px; height:22px; border-radius:7px; display:inline-flex; align-items:center; justify-content:center; font-size:13px;}
+  .sec ul{margin:0; padding-left:18px;}
+  .sec li{margin:7px 0; line-height:1.55; font-size:14.5px; color:#dfe3f5;}
+  .step-tag{display:inline-block; margin:24px 0 10px; font-size:12px; font-weight:800; letter-spacing:.3px;
+    color:var(--accent); background:rgba(108,123,255,.12); border:1px solid rgba(108,123,255,.35);
+    padding:6px 13px; border-radius:99px;}
+  .step-tag:first-child{margin-top:4px;}
+  .bars-cap{color:var(--sub); font-size:12.5px; margin:0 0 10px; text-align:center;}
+  .job-block{background:var(--card2); border:1px solid var(--line); border-radius:13px; padding:13px 15px; margin-top:11px;}
+  .job-block:first-of-type{margin-top:2px;}
+  .job-h{font-size:13.5px; font-weight:800; color:#cdd3f2; margin-bottom:7px;}
+  .job-block ul{margin:0; padding-left:17px;}
+  .job-block li{margin:5px 0; line-height:1.55; font-size:14px; color:#dfe3f5;}
+  .chips{display:flex; flex-wrap:wrap; gap:8px;}
+  .chip{background:var(--card2); border:1px solid var(--line); border-radius:99px; padding:7px 13px; font-size:13px; font-weight:600;}
+  .footer-note{text-align:center; color:var(--sub); font-size:12px; margin-top:22px; line-height:1.6;}
+  .toast{position:fixed; left:50%; bottom:26px; transform:translateX(-50%); background:#000a;
+    color:#fff; padding:11px 18px; border-radius:12px; font-size:13px; backdrop-filter:blur(6px);
+    opacity:0; transition:opacity .3s; pointer-events:none; z-index:50;}
+  .toast.show{opacity:1;}
+  .spin{width:18px; height:18px; border:2.5px solid #fff5; border-top-color:#fff; border-radius:50%;
+    animation:sp 0.7s linear infinite;}
+  @keyframes sp{to{transform:rotate(360deg);}}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ===================== 1. 인트로 ===================== -->
+  <section id="intro">
+    <span class="badge">🧭 행동유형 진단 · 약 3분 소요</span>
+    <h1>DISC 행동유형<br>온라인 진단</h1>
+    <p class="lead">나의 행동 스타일을 알아보는 검사입니다. 각 문항에서 <b>나를 가장 잘 나타내는 단어 하나</b>를 선택하세요. 정답은 없으니 평소 모습대로 편하게 답해 주세요.</p>
+
+    <div class="hero-card">
+      <div class="dots">
+        <div class="dot d">D<small>주도형</small></div>
+        <div class="dot i">I<small>사교형</small></div>
+        <div class="dot s">S<small>안정형</small></div>
+        <div class="dot c">C<small>신중형</small></div>
+      </div>
+      <h2 style="font-size:16px;">시작하기 전에 알려주세요</h2>
+      <div class="field">
+        <label>이름 *</label>
+        <input id="inName" type="text" placeholder="홍길동" autocomplete="name">
+      </div>
+      <div class="field">
+        <label>이메일 * <span style="color:var(--accent)">(검사 결과를 이 주소로 보내드립니다)</span></label>
+        <input id="inEmail" type="email" placeholder="me@example.com" autocomplete="email" inputmode="email">
+      </div>
+      <div class="info">📌 입력하신 정보와 검사 결과는 강사에게 전달되어 교육 운영 목적으로만 사용되며, 결과는 본인 이메일로도 발송됩니다.</div>
+      <button class="btn" style="margin-top:18px;" onclick="startTest()">검사 시작하기 →</button>
+    </div>
+    <div class="footer-note">총 24문항 · 결과는 검사 종료 즉시 확인됩니다</div>
+  </section>
+
+  <!-- ===================== 2. 설문 ===================== -->
+  <section id="quiz" class="hidden">
+    <div class="topbar">
+      <div class="progress"><i id="progBar"></i></div>
+      <div class="qcount"><span id="qNow">1</span>/24</div>
+    </div>
+    <div class="qcard">
+      <div class="qlabel">나를 가장 잘 나타내는 단어는?</div>
+      <div class="qtitle" id="qTitle">아래에서 하나를 선택하세요</div>
+      <div class="opts" id="opts"></div>
+    </div>
+    <div class="navrow">
+      <button class="btn secondary" id="prevBtn" onclick="prevQ()">← 이전</button>
+      <button class="btn" id="nextBtn" onclick="nextQ()" disabled>다음 →</button>
+    </div>
+  </section>
+
+  <!-- ===================== 3. 결과 ===================== -->
+  <section id="result" class="hidden">
+
+    <!-- STEP 1. 유형 확인 -->
+    <div class="step-tag">STEP 1 · 나의 DISC 유형</div>
+    <div class="result-head">
+      <span class="badge" id="rName">결과</span>
+      <div class="typeBig" id="rType">D</div>
+      <div class="typeName" id="rTypeName">주도형</div>
+      <div class="typeSub" id="rTypeEn">Dominance</div>
+    </div>
+    <p class="bars-cap">24문항 중 각 유형을 선택한 비율입니다.</p>
+    <div class="bars" id="bars"></div>
+
+    <!-- STEP 2. 내 유형의 특징 -->
+    <div class="step-tag">STEP 2 · 내 유형의 특징</div>
+    <div class="sec">
+      <h3><span class="ic" id="icDesc">📖</span> 한 줄 요약</h3>
+      <p id="rSummary" style="margin:0; line-height:1.65; font-size:15px;"></p>
+    </div>
+    <div class="sec">
+      <h3><span class="ic" style="background:#2c7;">💪</span> 강점</h3>
+      <ul id="rStrength"></ul>
+    </div>
+    <div class="sec">
+      <h3><span class="ic" style="background:#e85;">🌱</span> 보완하면 좋은 점</h3>
+      <ul id="rWeak"></ul>
+    </div>
+    <div class="sec">
+      <h3><span class="ic" style="background:#a6f;">🏷️</span> 키워드</h3>
+      <div class="chips" id="rChips"></div>
+    </div>
+
+    <!-- STEP 3. 직장에서의 내 유형 -->
+    <div class="step-tag">STEP 3 · 직장에서의 내 유형</div>
+    <div class="sec job">
+      <div class="job-block">
+        <div class="job-h">🗣️ 업무 소통 스타일</div>
+        <ul id="rJobStyle"></ul>
+      </div>
+      <div class="job-block">
+        <div class="job-h">📨 보고를 주고받을 때</div>
+        <ul id="rJobReport"></ul>
+      </div>
+      <div class="job-block">
+        <div class="job-h">📝 문서 작성 스타일</div>
+        <ul id="rJobDoc"></ul>
+      </div>
+      <div class="job-block">
+        <div class="job-h">⚡ 갈등이 생기는 지점</div>
+        <ul id="rJobConflict"></ul>
+      </div>
+    </div>
+
+    <!-- 이메일 받기 -->
+    <button class="btn" style="margin-top:14px;" id="emailBtn" onclick="emailMe()">📧 결과를 내 이메일로 받기</button>
+    <button class="btn secondary" style="margin-top:10px;" onclick="restart()">처음으로</button>
+    <div class="footer-note">본 결과는 DISC 행동유형 이론에 기반한 참고용 자료입니다.</div>
+  </section>
+
+  <div class="toast" id="toast"></div>
+</div>
+
+<script>
+/* ============================================================
+   설정: 결과를 구글 시트로 저장하려면 아래 ENDPOINT에
+   Apps Script 웹앱 URL을 붙여넣으세요. (apps-script.gs 참고)
+   비워두면 저장 없이 결과만 표시됩니다(테스트용).
+============================================================ */
+const CONFIG = {
+  ENDPOINT: ""   // 예: "https://script.google.com/macros/s/AKfy..../exec"
+};
+
+/* ===== 24문항 데이터 (PDF 채점키 기반, 옵션→DISC 요인) ===== */
+const QUESTIONS = [
+  [["절제하는","S"],["강력한","D"],["꼼꼼한","C"],["표현력 있는","I"]],
+  [["개척적인","D"],["정확한","C"],["흥미진진한","I"],["만족스러운","S"]],
+  [["기꺼이 하는","S"],["활기 있는","I"],["대담한","D"],["정교한","C"]],
+  [["논쟁을 좋아하는","D"],["회의적인","C"],["주저하는","S"],["예측할 수 없는","I"]],
+  [["공손한","C"],["사교적인","I"],["참을성이 있는","S"],["무서움을 모르는","D"]],
+  [["설득력 있는","I"],["독립심이 강한","D"],["논리적인","C"],["온화한","S"]],
+  [["신중한","C"],["차분한","S"],["과단성 있는","D"],["파티를 좋아하는","I"]],
+  [["인기 있는","I"],["고집 있는","D"],["완벽주의자","C"],["인심 좋은","S"]],
+  [["변화가 많은","I"],["수줍음을 타는","C"],["느긋한","S"],["완고한","D"]],
+  [["체계적인","C"],["낙관적인","I"],["의지가 강한","D"],["친절한","S"]],
+  [["엄격한","D"],["겸손한","C"],["상냥한","S"],["말주변이 좋은","I"]],
+  [["호의적인","S"],["빈틈없는","C"],["놀기 좋아하는","I"],["의지가 강한","D"]],
+  [["참신한","I"],["모험적인","D"],["절제된","C"],["신중한","S"]],
+  [["참는","C"],["성실한","S"],["공격적인","D"],["매력 있는","I"]],
+  [["열정적인","I"],["분석적인","C"],["동정심이 많은","S"],["단호한","D"]],
+  [["지도력 있는","D"],["충동적인","I"],["느린","S"],["비판적인","C"]],
+  [["일관성 있는","C"],["영향력 있는","D"],["생기 있는","I"],["느긋한","S"]],
+  [["유력한","I"],["친절한","S"],["독립적인","D"],["정돈된","C"]],
+  [["이상주의적인","C"],["평판이 좋은","I"],["쾌활한","S"],["솔직한","D"]],
+  [["참을성 없는","D"],["진지한","C"],["미루는","S"],["감성적인","I"]],
+  [["경쟁심이 있는","D"],["자발적인","I"],["충성스러운","S"],["사려 깊은","C"]],
+  [["희생적인","C"],["이해심 많은","S"],["설득력 있는","I"],["용기 있는","D"]],
+  [["의존적인","S"],["변덕스러운","I"],["절제력 있는","C"],["밀어붙이는","D"]],
+  [["포용력 있는","S"],["전통적인","C"],["사람을 부추기는","I"],["이끌어 가는","D"]]
+];
+
+/* ===== 4대 유형 해설 ===== */
+const TYPES = {
+  D:{ name:"주도형", en:"Dominance", color:"#e2483d",
+    summary:"목표와 결과를 향해 빠르게 추진하는 도전가입니다. 결단력이 강하고 어려운 상황에서도 앞장서서 문제를 해결합니다.",
+    strength:["빠르고 과감한 의사결정","목표 지향적이고 추진력이 강함","위기·도전 상황에서 발휘되는 리더십","결과를 만들어 내는 실행력"],
+    weak:["때로 성급하거나 독단적으로 보일 수 있음","타인의 감정·속도를 배려하는 여유","경청과 위임의 균형","세부 사항을 놓치지 않기"],
+    comm:["결론과 핵심부터 간결하게 전달하기","'무엇을·언제까지'를 명확히 하기","선택지를 주고 스스로 결정하게 하기","불필요한 잡담은 줄이고 효율 위주로"],
+    chips:["도전","결단력","리더십","추진력","목표지향","자신감"],
+    job:{
+      style:["목표 달성과 속도를 중시해 빠르고 직설적으로 핵심만 전달합니다.","목소리가 크고 힘이 넘치며, 단호하고 때로는 일방적·명령조로 들릴 수 있습니다."],
+      report:["잡담은 건너뛰고 두괄식으로 결론부터 짧고 굵게 보고하세요.","과정·변명보다 결과와 효율성을 중심으로 명확하고 단호하게 전달하세요.","경청 시 말을 가로채거나 대충 듣는 경향이 있으니 핵심을 먼저 던지세요."],
+      doc:["장황한 배경 설명은 빼고 '결론 → 이유 → 방법' 순서의 두괄식으로 작성합니다.","핵심과 목표만 명확하고 간결하게 정리합니다."],
+      conflict:["속도와 결과를 우선하다 타인의 의견·감정을 충분히 듣지 않을 때 마찰이 생깁니다.","직설적이고 단호한 표현이 상대에게 강압적으로 느껴질 수 있습니다.","과정을 건너뛰고 밀어붙일 때, 신중하게 검토하려는 유형과 부딪칩니다."]
+    } },
+  I:{ name:"사교형", en:"Influence", color:"#f3b13b",
+    summary:"사람과 관계 속에서 에너지를 얻는 분위기 메이커입니다. 낙관적이고 표현력이 풍부해 사람들에게 동기를 부여합니다.",
+    strength:["뛰어난 대인관계와 소통 능력","열정과 긍정 에너지","사람들을 설득하고 동기부여","새로운 아이디어와 분위기 전환"],
+    weak:["세부 사항·마무리에 약할 수 있음","집중력이 분산되기 쉬움","즉흥적인 결정 줄이기","객관적 데이터로 점검하기"],
+    comm:["밝고 친근한 분위기로 대화하기","공개적으로 인정·칭찬해 주기","아이디어를 자유롭게 표현하게 하기","함께하는 즐거움을 강조하기"],
+    chips:["사교적","열정","낙관","설득력","표현력","에너지"],
+    job:{
+      style:["억양 변화가 다양하고 열정적이며 감정 표현이 풍부합니다.","디테일·수치보다 큰 그림과 참신한 콘셉트에 집중해 타인을 설득하고 긍정적 에너지를 불어넣습니다."],
+      report:["딱딱한 업무 이야기 전, 가벼운 스몰토크로 시작하면 좋습니다.","고루한 나열보다 새롭고 참신한 콘셉트의 아이디어를 좋아합니다.","말이 많아져 본래 목적을 잊을 수 있으니, 중간·끝에 결정 사항을 한 문장으로 요약해 주세요."],
+      doc:["단순 나열보다 새롭고 참신한 아이디어 위주로 작성합니다.","꼼꼼한 데이터보다 시각적으로 매력적이거나 큰 그림을 보여주는 형태를 선호합니다."],
+      conflict:["큰 그림에 집중하다 디테일·마감을 놓쳐 신뢰 문제가 생길 수 있습니다.","대화가 길어지거나 주제에서 벗어나, 실무 중심의 상대가 답답함을 느낄 수 있습니다.","비판을 개인적으로 받아들이거나 감정적으로 반응할 때 갈등이 깊어집니다."]
+    } },
+  S:{ name:"안정형", en:"Steadiness", color:"#3aa76d",
+    summary:"꾸준함과 협력으로 팀을 든든하게 받치는 조력자입니다. 인내심이 강하고 신뢰할 수 있으며 사람들을 편안하게 합니다.",
+    strength:["뛰어난 경청과 공감 능력","꾸준하고 성실한 일 처리","팀워크와 협력을 이끄는 안정감","높은 충성심과 신뢰성"],
+    weak:["급격한 변화에 적응하는 유연성","거절하거나 자기 의견 표현하기","빠른 의사결정이 필요할 때의 결단","갈등을 회피하지 않고 마주하기"],
+    comm:["부드럽고 차분하게 다가가기","갑작스러운 변화는 미리 예고하기","충분히 생각할 시간을 주기","진심 어린 관심과 안정감 주기"],
+    chips:["안정","협력","인내","신뢰","경청","성실"],
+    job:{
+      style:["억양 변화가 적고 침착하고 느긋하게 말합니다.","타인의 감정·입장을 신경 써 배경을 길게 설명하는 편이며, 갈등을 피하고 조화와 협력을 중시합니다."],
+      report:["갑작스러운 변화나 즉각적인 결정 강요는 부담스러워합니다.","이유와 절차를 천천히 부드럽게 설명하고, 생각할 시간과 여유를 주세요.","구두로 압박하기보다 논리적이고 체계적인 서면 요약을 함께 주면 편안해합니다."],
+      doc:["갈등·오해가 없도록 상황의 배경, 절차, 모두의 입장을 차분하고 꼼꼼하게 기록합니다."],
+      conflict:["갈등을 피하려 자기 의견을 미루다 문제가 뒤늦게 드러날 수 있습니다.","갑작스러운 변화나 즉각적인 결정 요구에 스트레스를 받아 소극적으로 대응합니다.","거절을 어려워해 속마음을 숨기다, 누적된 불만이 한 번에 드러날 수 있습니다."]
+    } },
+  C:{ name:"신중형", en:"Conscientiousness", color:"#3b78d8",
+    summary:"정확성과 원칙을 중시하는 분석가입니다. 논리적이고 꼼꼼하며 높은 품질의 결과를 만들어 냅니다.",
+    strength:["정확하고 꼼꼼한 일 처리","논리적·분석적 사고","높은 품질과 완성도 추구","원칙과 기준을 지키는 책임감"],
+    weak:["완벽주의로 인한 속도 저하","지나친 비판·분석 줄이기","감정 표현과 유연함 더하기","'충분히 좋은' 선에서 마무리하기"],
+    comm:["근거와 데이터를 함께 제시하기","충분한 정보와 시간을 주기","논리적이고 체계적으로 설명하기","갑작스러운 압박보다 사전 준비를"],
+    chips:["분석적","정확","논리","원칙","신중","완성도"],
+    job:{
+      style:["감정 표현을 배제하고 침착한 태도로 구체적이고 논리적으로 전달합니다.","정확성과 품질을 중시해 세부 사항을 꼼꼼히 파고들고 여러 번 확인합니다."],
+      report:["'대충 감으로'·감정적 호소를 매우 싫어합니다.","구체적인 수치와 객관적 데이터를 기반으로 보고하세요.","정보가 논리적·체계적으로 정리되어 있어야 신뢰합니다(오류를 찾는 분석적 경청)."],
+      doc:["사전에 철저히 조사해 정보를 논리적·체계적으로 정리합니다.","주장을 뒷받침하는 정확한 팩트·수치·근거 자료를 기반으로 완성도 높게 작성합니다."],
+      conflict:["완벽과 정확을 추구하다 일정이 지연되거나 비판적으로 비칠 수 있습니다.","근거·데이터가 부족한 제안을 신뢰하지 않아, 빠르게 추진하려는 유형과 마찰이 생깁니다.","감정 표현이 적어 차갑게 느껴지거나, 세부에 매여 큰 결정을 미룰 수 있습니다."]
+    } }
+};
+
+/* ===== 상태 ===== */
+let answers = new Array(24).fill(null);
+let cur = 0;
+let user = { name:"", email:"" };
+let lastResult = { top:null, score:null };
+
+function $(id){ return document.getElementById(id); }
+function show(id){ ["intro","quiz","result"].forEach(s=>$(s).classList.toggle("hidden", s!==id)); window.scrollTo(0,0); }
+function toast(msg){ const t=$("toast"); t.textContent=msg; t.classList.add("show"); setTimeout(()=>t.classList.remove("show"),2200); }
+
+function startTest(){
+  const n=$("inName").value.trim(), em=$("inEmail").value.trim();
+  if(!n){ toast("이름을 입력해 주세요"); $("inName").focus(); return; }
+  if(!em){ toast("이메일을 입력해 주세요"); $("inEmail").focus(); return; }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){ toast("올바른 이메일 형식이 아닙니다"); $("inEmail").focus(); return; }
+  user={name:n, email:em};
+  cur=0; answers=new Array(24).fill(null);
+  show("quiz"); renderQ();
+}
+
+function renderQ(){
+  const q=QUESTIONS[cur];
+  $("qNow").textContent=cur+1;
+  $("progBar").style.width=((cur)/24*100)+"%";
+  $("qTitle").textContent=`Q${cur+1}. 다음 중 평소 나를 가장 잘 나타내는 것은?`;
+  const box=$("opts"); box.innerHTML="";
+  q.forEach((opt,i)=>{
+    const el=document.createElement("div");
+    el.className="opt"+(answers[cur]===i?" sel":"");
+    el.innerHTML=`<span class="mk"></span><span class="tx">${opt[0]}</span>`;
+    el.onclick=()=>{ answers[cur]=i; renderQ(); $("nextBtn").disabled=false; };
+    box.appendChild(el);
+  });
+  $("prevBtn").style.visibility = cur===0 ? "hidden" : "visible";
+  $("nextBtn").disabled = answers[cur]===null;
+  $("nextBtn").textContent = cur===23 ? "결과 보기 ✓" : "다음 →";
+}
+
+function nextQ(){
+  if(answers[cur]===null){ toast("하나를 선택해 주세요"); return; }
+  if(cur===23){ finish(); return; }
+  cur++; renderQ();
+}
+function prevQ(){ if(cur>0){ cur--; renderQ(); } }
+
+function finish(){
+  const score={D:0,I:0,S:0,C:0};
+  answers.forEach((ai,qi)=>{ if(ai!==null){ score[QUESTIONS[qi][ai][1]]++; } });
+  // 최고 점수 유형(동점 시 D>I>S>C 우선)
+  let top="D", best=-1;
+  ["D","I","S","C"].forEach(k=>{ if(score[k]>best){ best=score[k]; top=k; } });
+  lastResult={top, score};
+  $("progBar").style.width="100%";
+  renderResult(top, score);
+  saveResult(top, score, true);   // 검사 완료 시 시트 저장 + 이메일 자동 발송
+  show("result");
+}
+
+function renderResult(top, score){
+  const t=TYPES[top];
+  $("rName").textContent = user.name ? `${user.name} 님의 결과` : "검사 결과";
+  $("rType").textContent=top; $("rType").style.color=t.color;
+  $("rTypeName").textContent=t.name;
+  $("rTypeEn").textContent=t.en;
+  $("rSummary").textContent=t.summary;
+  fillList("rStrength",t.strength); fillList("rWeak",t.weak);
+  fillList("rJobStyle",t.job.style); fillList("rJobReport",t.job.report);
+  fillList("rJobDoc",t.job.doc); fillList("rJobConflict",t.job.conflict);
+  const chips=$("rChips"); chips.innerHTML="";
+  t.chips.forEach(c=>{ const s=document.createElement("span"); s.className="chip"; s.textContent="#"+c; chips.appendChild(s); });
+  // 막대 그래프
+  const bars=$("bars"); bars.innerHTML="";
+  const max=24;
+  ["D","I","S","C"].forEach(k=>{
+    const pct=Math.round(score[k]/max*100);
+    const row=document.createElement("div"); row.className="bar";
+    row.innerHTML=`<div class="k" style="color:${TYPES[k].color}">${k} ${TYPES[k].name}</div>
+      <div class="track"><i style="background:${TYPES[k].color}"></i></div>
+      <div class="v">${score[k]}</div>`;
+    bars.appendChild(row);
+    setTimeout(()=>{ row.querySelector("i").style.width=Math.max(pct,4)+"%"; },60);
+  });
+}
+function fillList(id,arr){ const ul=$(id); ul.innerHTML=""; arr.forEach(x=>{ const li=document.createElement("li"); li.textContent=x; ul.appendChild(li); }); }
+
+function saveResult(top, score, sendMail){
+  const payload={
+    name:user.name, email:user.email, type:top,
+    D:score.D, I:score.I, S:score.S, C:score.C,
+    answers:answers.map((a,i)=> a===null?"":QUESTIONS[i][a][0]).join("|"),
+    ts:new Date().toLocaleString("ko-KR"),
+    sendMail: !!sendMail,                 // true면 Apps Script가 본인에게 이메일 발송
+    html: buildEmailHtml(top, score)      // 이메일 본문(HTML)
+  };
+  // 로컬 백업
+  try{ const log=JSON.parse(localStorage.getItem("disc_results")||"[]"); log.push({name:payload.name,email:payload.email,type:top,D:score.D,I:score.I,S:score.S,C:score.C,ts:payload.ts}); localStorage.setItem("disc_results",JSON.stringify(log)); }catch(e){}
+  // 원격 저장 + 이메일 (구글 시트 Apps Script)
+  if(CONFIG.ENDPOINT){
+    return fetch(CONFIG.ENDPOINT,{ method:"POST", mode:"no-cors",
+      headers:{"Content-Type":"text/plain;charset=utf-8"}, body:JSON.stringify(payload) })
+      .then(()=>{ if(sendMail) toast("결과를 "+user.email+" 으로 보냈어요 ✓"); })
+      .catch(()=>toast("전송에 실패했습니다(인터넷 확인)"));
+  } else if(sendMail){
+    toast("※ 메일 발송은 배포 후 동작합니다(설정 필요)");
+  }
+  return Promise.resolve();
+}
+
+// "결과를 내 이메일로 받기" 버튼
+function emailMe(){
+  if(!lastResult.top) return;
+  const btn=$("emailBtn"); const old=btn.innerHTML;
+  btn.disabled=true; btn.innerHTML='<span class="spin"></span> 보내는 중...';
+  Promise.resolve(saveResult(lastResult.top, lastResult.score, true)).finally(()=>{
+    setTimeout(()=>{ btn.disabled=false; btn.innerHTML="📧 결과를 다시 받기"; }, 1200);
+  });
+}
+
+// 이메일 본문(HTML) 생성 — 결과 화면과 동일한 내용
+function buildEmailHtml(top, score){
+  const t=TYPES[top];
+  const li=arr=>arr.map(x=>`<li style="margin:6px 0;line-height:1.55">${x}</li>`).join("");
+  const bars=["D","I","S","C"].map(k=>{
+    const pct=Math.round(score[k]/24*100), c=TYPES[k].color;
+    return `<tr>
+      <td style="padding:4px 8px;font-weight:700;color:${c};white-space:nowrap">${k} ${TYPES[k].name}</td>
+      <td style="padding:4px 8px;width:100%"><div style="background:#eef0f7;border-radius:8px;overflow:hidden">
+        <div style="background:${c};height:16px;width:${Math.max(pct,3)}%"></div></div></td>
+      <td style="padding:4px 8px;font-weight:700;text-align:right">${score[k]} (${pct}%)</td></tr>`;
+  }).join("");
+  const block=(title,arr)=>`<div style="background:#f6f7fb;border:1px solid #e6e8f2;border-radius:10px;padding:12px 14px;margin:8px 0">
+      <div style="font-weight:800;margin-bottom:6px;color:#333">${title}</div>
+      <ul style="margin:0;padding-left:18px;color:#444;font-size:14px">${li(arr)}</ul></div>`;
+  return `<div style="font-family:'Apple SD Gothic Neo','Malgun Gothic',sans-serif;max-width:600px;margin:0 auto;color:#222">
+    <div style="background:linear-gradient(135deg,#6c7bff,#8a63ff);color:#fff;padding:24px;border-radius:14px;text-align:center">
+      <div style="font-size:13px;opacity:.9">${user.name||""} 님의 DISC 행동유형 진단 결과</div>
+      <div style="font-size:48px;font-weight:900;line-height:1.1;margin:6px 0;color:${t.color===''?'#fff':'#fff'}">${top}</div>
+      <div style="font-size:20px;font-weight:800">${t.name} <span style="font-weight:400;opacity:.85">(${t.en})</span></div>
+    </div>
+    <p style="font-size:15px;line-height:1.65;margin:18px 4px">${t.summary}</p>
+    <h3 style="margin:18px 4px 6px;font-size:15px">📊 유형별 선택 비율</h3>
+    <table style="width:100%;border-collapse:collapse;font-size:13px">${bars}</table>
+    <h3 style="margin:20px 4px 6px;font-size:15px">🧭 내 유형의 특징</h3>
+    ${block("💪 강점", t.strength)}
+    ${block("🌱 보완하면 좋은 점", t.weak)}
+    <h3 style="margin:20px 4px 6px;font-size:15px">💼 직장에서의 내 유형</h3>
+    ${block("🗣️ 업무 소통 스타일", t.job.style)}
+    ${block("📨 보고를 주고받을 때", t.job.report)}
+    ${block("📝 문서 작성 스타일", t.job.doc)}
+    ${block("⚡ 갈등이 생기는 지점", t.job.conflict)}
+    <p style="color:#888;font-size:12px;text-align:center;margin:22px 0 4px">본 결과는 DISC 행동유형 이론에 기반한 참고용 자료입니다.</p>
+  </div>`;
+}
+
+function restart(){ $("inName").value=""; $("inEmail").value=""; lastResult={top:null,score:null}; show("intro"); }
+</script>
+</body>
+</html>
