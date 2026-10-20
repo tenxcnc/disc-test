@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>G3 AI 리터러시 진단</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: single centered column like a printed inspection sheet; one card per screen, numbers set in mono */
+:root{
+  --bg:#F3F5F8; --surface:#FFFFFF; --ink:#14202E; --ink2:#4A5869; --ink3:#7D8A99; --line:#D9E0E8;
+  --accent:#0B4C74; --accent-ink:#FFFFFF; --accent-soft:#E3EEF6;
+  --c1:#1B3A6B; --c2:#2E6DA4; --c3:#1A7A4A; --c4:#B8560F;
+  --ok:#1A7A4A;
+  --sans:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0E141B; --surface:#16202B; --ink:#E7EDF3; --ink2:#B2BECA; --ink3:#8391A0; --line:#2A3846;
+  --accent:#6FB2E0; --accent-ink:#0E141B; --accent-soft:#1C3347;
+  --c1:#8DB0E8; --c2:#6FB2E0; --c3:#5FC08C; --c4:#F0A061; --ok:#5FC08C; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E141B; --surface:#16202B; --ink:#E7EDF3; --ink2:#B2BECA; --ink3:#8391A0; --line:#2A3846;
+  --accent:#6FB2E0; --accent-ink:#0E141B; --accent-soft:#1C3347;
+  --c1:#8DB0E8; --c2:#6FB2E0; --c3:#5FC08C; --c4:#F0A061; --ok:#5FC08C; color-scheme:dark}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:24px 40px}
+.wrap{max-width:560px;margin:0 auto}
+.screen{display:flex;flex-direction:column;gap:20px}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);font-weight:600}
+h1{font-size:30px;line-height:1.3;margin:0;text-wrap:balance;font-weight:700}
+h1 em{font-style:normal;color:var(--accent)}
+h2{font-size:22px;line-height:1.35;margin:0;text-wrap:balance}
+p{margin:0}
+.muted{color:var(--ink2)}
+.small{font-size:13px;color:var(--ink3)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
+.cats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cat{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:500;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.dot{width:9px;height:9px;border-radius:50%;flex:none}
+.spec{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.spec div{padding:12px 4px;text-align:center}
+.spec b{display:block;font-family:var(--mono);font-size:20px;font-variant-numeric:tabular-nums}
+.spec span{font-size:12px;color:var(--ink3)}
+.seg{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface)}
+.seg button{border:0;background:transparent;padding:12px;font:inherit;font-size:15px;color:var(--ink2);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);font-weight:600}
+.btn{border:0;border-radius:12px;padding:15px 18px;font:inherit;font-weight:600;font-size:16px;cursor:pointer;background:var(--accent);color:var(--accent-ink);width:100%}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.row>*{flex:1 1 150px}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+/* question */
+.qtop{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.qnum{font-family:var(--mono);font-size:26px;font-weight:600;font-variant-numeric:tabular-nums}
+.qnum span{font-size:15px;color:var(--ink3);margin-left:4px}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;flex:1;max-width:220px}
+.bar i{display:block;height:100%;background:var(--accent);transition:width .25s}
+.tag{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;background:var(--accent-soft);align-self:flex-start}
+.qbody{font-size:20px;line-height:1.5;font-weight:500;min-height:3em}
+.ans{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.ans button{display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 4px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);font:inherit;font-size:13px;line-height:1.35;cursor:pointer;white-space:pre-line}
+.ans button b{font-family:var(--mono);font-size:18px}
+.ans button:hover{border-color:var(--accent)}
+.ans button.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.back{background:none;border:0;color:var(--ink2);font:inherit;font-size:14px;cursor:pointer;padding:6px 0;align-self:flex-start}
+.back[disabled]{opacity:.35;cursor:default}
+
+/* result */
+.score{display:flex;align-items:baseline;gap:8px}
+.score b{font-family:var(--mono);font-size:56px;line-height:1;font-variant-numeric:tabular-nums}
+.score span{color:var(--ink3)}
+.lv{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.lv strong{font-size:24px}
+.badge{font-family:var(--mono);font-size:11px;letter-spacing:.12em;padding:4px 8px;border-radius:6px;background:var(--accent-soft);color:var(--accent)}
+.ladder{display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
+.ladder div{font-size:11px;text-align:center;padding:6px 2px;border-radius:6px;background:var(--bg);color:var(--ink3);border:1px solid var(--line)}
+.ladder div.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
+.cb{display:flex;flex-direction:column;gap:8px;padding-block:14px;border-top:1px solid var(--line)}
+.cb:first-of-type{border-top:0;padding-top:4px}
+.cbh{display:flex;justify-content:space-between;align-items:center;gap:8px;font-weight:600;font-size:15px}
+.cbh span{font-family:var(--mono);font-size:13px;color:var(--ink3)}
+.track{height:8px;background:var(--bg);border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.track i{display:block;height:100%}
+.fb{font-size:14px;color:var(--ink2)}
+.act{font-size:14px;font-weight:500}
+.link-box{border-left:3px solid var(--accent);padding:4px 0 4px 14px;display:flex;flex-direction:column;gap:6px}
+.link-box b{font-size:15px}
+.copied{font-size:13px;color:var(--ok);min-height:1.2em;text-align:center}
+textarea.fallback{width:100%;min-height:120px;font:inherit;font-size:13px;border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--surface);color:var(--ink)}
+
+/* prep */
+.step{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;padding-block:14px;border-top:1px solid var(--line)}
+.step:first-child{border-top:0;padding-top:0}
+.step input{width:22px;height:22px;margin-top:3px;accent-color:var(--accent)}
+.step label{display:flex;flex-direction:column;gap:4px;cursor:pointer}
+.step label b{font-size:16px}
+.step a{color:var(--accent);font-family:var(--mono);font-size:14px;word-break:break-all}
+.prog{font-family:var(--mono);font-size:14px;color:var(--ink2)}
+@media (max-width:420px){h1{font-size:26px}.qbody{font-size:18px}.ans button{font-size:12px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <section class="screen" id="s-intro">
+    <p class="eyebrow">포레시아코리아 · G3 책임매니저 AI 실무 활용 워크샵</p>
+    <h1>책임매니저를 위한<br><em>AI 리터러시</em> 자가 진단</h1>
+    <p class="muted">팀과 담당 업무를 책임지는 실무자로서 AI를 얼마나 이해하고 활용하고 있는지 솔직하게 점검해 보세요. 정답은 없고, 결과는 이 화면에만 표시됩니다.</p>
+    <div class="cats" id="intro-cats"></div>
+    <div class="spec">
+      <div><b>12</b><span>문항</span></div>
+      <div><b>3분</b><span>소요 시간</span></div>
+      <div><b>36</b><span>만점</span></div>
+    </div>
+    <div>
+      <p class="small" style="margin-bottom:8px">진단 시점을 골라 주세요</p>
+      <div class="seg" role="group" aria-label="진단 시점">
+        <button type="button" id="m-pre" aria-pressed="true">교육 전 (사전)</button>
+        <button type="button" id="m-post" aria-pressed="false">교육 후 (사후)</button>
+      </div>
+    </div>
+    <button class="btn" id="start">진단 시작하기</button>
+    <button class="btn ghost" id="go-prep">교육 전 준비 체크리스트 보기</button>
+    <p class="small">2026. 11. 11.(수) 증평 벨포레리조트 · TENX Coaching &amp; Consulting</p>
+  </section>
+
+  <section class="screen" id="s-q" hidden>
+    <div class="qtop">
+      <div class="qnum" id="qnum">01<span>/ 12</span></div>
+      <div class="bar" aria-hidden="true"><i id="qbar" style="width:0"></i></div>
+    </div>
+    <span class="tag"><span class="dot" id="qdot"></span><span id="qcat"></span></span>
+    <p class="qbody" id="qbody"></p>
+    <div class="ans" id="ans"></div>
+    <button class="back" id="back">이전 문항</button>
+  </section>
+
+  <section class="screen" id="s-r" hidden>
+    <p class="eyebrow" id="r-eyebrow">진단 결과</p>
+    <div class="card" style="display:flex;flex-direction:column;gap:14px">
+      <div class="score"><b id="r-total">0</b><span>/ 36점</span></div>
+      <div class="lv"><strong id="r-level"></strong><span class="badge" id="r-badge"></span></div>
+      <div class="ladder" id="r-ladder"></div>
+      <p class="muted" id="r-desc"></p>
+    </div>
+    <div class="card">
+      <h2 style="font-size:17px;margin-bottom:6px">영역별 점수</h2>
+      <div id="r-cats"></div>
+    </div>
+    <div class="card" style="display:flex;flex-direction:column;gap:14px">
+      <h2 style="font-size:17px">다음 단계</h2>
+      <p id="r-rec"></p>
+      <div class="link-box">
+        <b>오늘 워크샵에서 특히 챙길 부분</b>
+        <p class="fb" id="r-module"></p>
+      </div>
+    </div>
+    <div class="row">
+      <button class="btn ghost" id="again">다시 하기</button>
+      <button class="btn" id="copy">결과 복사</button>
+    </div>
+    <p class="copied" id="copied" role="status"></p>
+    <textarea class="fallback" id="fallback" hidden readonly aria-label="복사할 결과"></textarea>
+    <p class="small">복사한 결과는 강사가 안내하는 패들렛에 붙여 넣어 주세요. 이름은 적지 않아도 됩니다.</p>
+    <button class="btn ghost" id="r-prep">교육 전 준비 체크리스트 보기</button>
+  </section>
+
+  <section class="screen" id="s-prep" hidden>
+    <p class="eyebrow">교육 전 준비 · 11월 10일(화)까지</p>
+    <h2>구글 계정 하나로 세 가지 도구에 미리 로그인해 주세요</h2>
+    <p class="muted">교육 당일 가입하면 인증 메일과 보안 확인 때문에 10분 넘게 걸리기도 합니다. 아래 순서대로 한 번씩만 로그인해 두면 당일 바로 실습할 수 있습니다.</p>
+    <div class="card" id="steps"></div>
+    <p class="prog" id="prep-prog" role="status"></p>
+    <button class="btn ghost" id="prep-back">진단 화면으로 돌아가기</button>
+  </section>
+
+</div>
+
+<script>
+const CATS=["AI 기초 이해","현장·업무 활용","전략적 판단력","리스크·윤리 관리"];
+const CVAR={"AI 기초 이해":"--c1","현장·업무 활용":"--c2","전략적 판단력":"--c3","리스크·윤리 관리":"--c4"};
+const Qs=[
+ {cat:CATS[0],q:"코파일럿, ChatGPT, NotebookLM 같은 AI 도구가 각각 어떤 일에 잘 맞는지 구분할 수 있다"},
+ {cat:CATS[0],q:"AI가 틀린 정보를 자신 있게 내놓는 '환각(hallucination)' 현상을 알고 있다"},
+ {cat:CATS[0],q:"AI에게 역할, 배경, 원하는 형식을 함께 알려주면 결과가 달라진다는 것을 알고 있다"},
+ {cat:CATS[1],q:"ChatGPT, Copilot 등 AI 도구를 업무 보고서 작성이나 데이터 분석에 직접 써봤다"},
+ {cat:CATS[1],q:"AI 도구를 사용해 회의록 정리, 일정 계획, 메일 초안 등 반복 업무를 줄이고 있다"},
+ {cat:CATS[1],q:"AI가 생성한 결과물을 그대로 쓰지 않고 반드시 검토·수정한 후 활용한다"},
+ {cat:CATS[2],q:"내가 담당하는 업무에서 AI로 개선할 수 있는 업무 영역을 2가지 이상 구체적으로 떠올릴 수 있다"},
+ {cat:CATS[2],q:"AI 도입 시 기대 효과(비용 절감, 품질 향상 등)와 한계를 균형 있게 평가할 수 있다"},
+ {cat:CATS[2],q:"AI 활용이 우리 산업과 경쟁사에 미치는 변화 방향을 주시하고 있다"},
+ {cat:CATS[3],q:"AI에 회사 기밀·설계 데이터·고객 정보를 입력할 때의 보안 위험을 인지하고 있다"},
+ {cat:CATS[3],q:"AI 판단에 지나치게 의존하지 않도록 사람의 검토(Human-in-the-loop) 절차가 필요하다고 생각한다"},
+ {cat:CATS[3],q:"AI 활용이 현장 인력의 역할 변화와 업무 방식에 미칠 영향을 고려해본 적 있다"}
+];
+const Ans=[{v:0,l:"전혀\n아니다"},{v:1,l:"아닌\n편이다"},{v:2,l:"그런\n편이다"},{v:3,l:"매우\n그렇다"}];
+const Levels=[
+ {max:9,name:"AI 첫걸음",badge:"STARTER",desc:"AI가 아직 낯설지만, 이 진단을 끝까지 한 것 자체가 좋은 출발점입니다. 제조업에서도 AI 활용이 빠르게 늘고 있어 지금부터 기초를 쌓는 것이 중요합니다.",rec:"교육 전에 ChatGPT에 구글 계정으로 로그인하고, 오늘 쓸 메일 초안 하나를 AI에게 맡겨 보세요."},
+ {max:18,name:"AI 탐색자",badge:"EXPLORER",desc:"관심을 갖고 조금씩 써 보는 단계입니다. 지금은 사용 빈도를 높이는 것이 가장 중요합니다. 내 업무 하나를 정해 작게 실험해 보세요.",rec:"매주 반복하는 업무 한 가지를 AI로 처리하는 루틴을 만들고, 결과를 팀원과 공유해 보세요."},
+ {max:27,name:"AI 활용 실무자",badge:"PRACTITIONER",desc:"AI를 업무에 꽤 잘 녹이고 있습니다. 이제는 팀원에게 활용 범위를 넓히고, 도입 효과를 근거와 숫자로 설명하는 단계입니다.",rec:"담당 업무의 AI 활용 사례를 정리해 팀에 공유하거나, 반복 업무 자동화 파일럿을 기획해 보세요."},
+ {max:33,name:"AI 전략가",badge:"STRATEGIST",desc:"AI를 전략적이고 비판적으로 다루는 수준입니다. 팀과 조직의 AI 역량을 키우는 데 앞장설 수 있는 위치입니다.",rec:"팀 AI 활용 가이드라인을 만들거나, 팀원 대상 짧은 AI 활용 세션을 직접 열어 보세요."},
+ {max:36,name:"AI 챔피언",badge:"CHAMPION",desc:"기초 이해부터 리스크 관리, 전략적 판단까지 고루 갖춘 상태입니다. 조직의 AI 전환을 이끌 준비가 된 실무 전문가입니다.",rec:"팀 단위 AI 도입 로드맵을 설계하고, 다른 팀과 활용 사례를 나누는 자리를 주도해 보세요."}
+];
+const FB={
+ "AI 기초 이해":[
+  {r:[0,3],fb:"AI의 기본 개념이 아직 낯선 단계입니다. 도구마다 잘하는 일이 다르다는 것부터 알면 내 업무에 쓸 곳이 훨씬 넓게 보입니다.",a:"코파일럿이나 ChatGPT에 업무 질문 하나를 해 보고, 답이 어떻게 만들어지는지 살펴보세요."},
+  {r:[4,6],fb:"기초 개념은 어느 정도 이해하고 있습니다. 환각 같은 한계를 구체적으로 알아두면 팀원에게 올바른 활용법을 알려줄 수 있습니다.",a:"우리 업무에서 AI의 틀린 답이 문제가 될 상황을 2가지 적어 보세요."},
+  {r:[7,9],fb:"AI 기초를 탄탄하게 이해하고 있습니다. 이를 바탕으로 팀의 오남용을 막고 좋은 활용 습관을 만들 수 있습니다.",a:"팀 회의에서 10분짜리 AI 기초 공유를 해 보세요. 설명하면서 본인 이해도 깊어집니다."}],
+ "현장·업무 활용":[
+  {r:[0,3],fb:"AI 도구를 직접 써 본 경험이 아직 적습니다. 보고서, 메일, 회의록 같은 사무 업무에서 효과를 바로 느낄 수 있습니다.",a:"이번 주 보고서 초안 하나를 AI에 맡겨 보세요. 30분만 줄어도 좋은 출발입니다."},
+  {r:[4,6],fb:"써 보긴 했지만 아직 루틴은 아닙니다. 업무 하나를 'AI 먼저'로 정해 두면 습관이 빨리 생깁니다.",a:"회의가 끝나면 메모 3줄을 AI로 회의록 만드는 것을 기본 절차로 정해 보세요."},
+  {r:[7,9],fb:"업무에 잘 쓰고 있고 검토 습관도 갖추었습니다. 이제 팀 전체 생산성으로 넓힐 차례입니다.",a:"가장 효과가 컸던 프롬프트를 팀 공용 템플릿으로 만들어 공유해 보세요."}],
+ "전략적 판단력":[
+  {r:[0,3],fb:"AI가 내 업무에서 어떤 가치를 낼지 아직 구체적으로 그려지지 않은 단계입니다. 업무를 'AI가 도울 일'과 '사람이 할 일'로 나누는 것부터 시작하면 됩니다.",a:"담당 업무 8개를 적고, 반복성과 판단 필요도를 상·중·하로 표시해 보세요."},
+  {r:[4,6],fb:"도입 효과와 한계를 어느 정도 균형 있게 보고 있습니다. 작은 파일럿을 정해 실험하면 판단이 훨씬 날카로워집니다.",a:"가장 반복적인 업무 하나로 2주 파일럿을 정하고, 전후 시간을 재 보세요."},
+  {r:[7,9],fb:"AI의 전략적 가치와 업계 흐름을 함께 보고 있습니다. 이 판단을 팀 의사결정에 적극 반영할 수 있습니다.",a:"팀 AI 활용 계획(3개월)을 한 장으로 정리해 팀장에게 공유해 보세요."}],
+ "리스크·윤리 관리":[
+  {r:[0,3],fb:"AI 사용 시 보안과 윤리 위험을 아직 충분히 의식하지 못하고 있습니다. 외부 AI 입력은 회사 밖 전송과 같다는 점부터 기억해 주세요.",a:"사내 정보보호 규정에서 AI 도구 관련 내용을 확인해 보세요."},
+  {r:[4,6],fb:"위험은 알고 있지만 업무 절차에는 아직 반영되지 않은 상태입니다. 간단한 기준만 정해 두어도 사고를 막을 수 있습니다.",a:"입력 금지 정보와 결과 검토 기준을 담은 1쪽짜리 팀 체크리스트를 만들어 보세요."},
+  {r:[7,9],fb:"보안, 편향, 인력 변화까지 폭넓게 고려하고 있습니다. 팀의 AI 사용 원칙을 먼저 설계할 수 있는 위치입니다.",a:"데이터 보안, 사람의 최종 검토, 출처 확인을 담은 팀 AI 사용 원칙을 문서로 남겨 보세요."}]
+};
+const MOD={
+ "AI 기초 이해":"M1 우리의 AI 현주소에서 AI 활용 4가지 기준과 도구 비교(코파일럿·ChatGPT·NotebookLM)를 꼭 챙기세요.",
+ "현장·업무 활용":"M2의 RCTF 프롬프트 템플릿 실습에서 매주 반복하는 보고 업무 하나를 골라 바로 쓸 템플릿을 완성해 가세요.",
+ "전략적 판단력":"M1 위임 진단 워크시트와 M3 우리 팀 AI 도입 계획서에 시간을 가장 많이 쓰세요.",
+ "리스크·윤리 관리":"M2의 입력 전 보안 기준과 AI 검증 3단계(출처 요구·교차 검증·수치 검산)를 집중해서 보세요."
+};
+const PREP=[
+ {id:"p1",t:"구글 계정 준비",d:"Gmail 계정이 없다면 하나 만들어 주세요. 개인 계정도 괜찮습니다.",u:"accounts.google.com"},
+ {id:"p2",t:"ChatGPT 로그인",d:"접속 후 로그인 → 'Google로 계속하기'를 눌러 구글 계정으로 들어갑니다.",u:"chatgpt.com"},
+ {id:"p3",t:"Gemini 로그인",d:"접속 후 오른쪽 위 로그인 → 같은 구글 계정을 선택합니다. 교차 검증에 씁니다.",u:"gemini.google.com"},
+ {id:"p4",t:"NotebookLM 로그인",d:"접속 후 같은 구글 계정으로 로그인하고 '새 노트북 만들기' 화면이 열리는지 확인합니다.",u:"notebooklm.google.com"},
+ {id:"p5",t:"사내 코파일럿 로그인 확인",d:"업무용 노트북에서 회사 계정으로 코파일럿 채팅이 열리는지 확인합니다.",u:"copilot.microsoft.com"},
+ {id:"p6",t:"노트북 지참",d:"교육 당일 노트북과 충전기를 챙겨 주세요. 업무용 노트북에서 외부 AI 접속이 막히면 개인 노트북도 괜찮습니다.",u:""}
+];
+
+const $=id=>document.getElementById(id);
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+let mode="사전", cur=0, scores=[];
+
+function show(id){["s-intro","s-q","s-r","s-prep"].forEach(s=>$(s).hidden=s!==id);window.scrollTo(0,0)}
+function setMode(m){mode=m;$("m-pre").setAttribute("aria-pressed",m==="사전");$("m-post").setAttribute("aria-pressed",m==="사후")}
+$("m-pre").onclick=()=>setMode("사전");$("m-post").onclick=()=>setMode("사후");
+
+$("intro-cats").innerHTML=CATS.map(c=>`<div class="cat"><span class="dot" style="background:var(${CVAR[c]})"></span>${c}</div>`).join("");
+
+function renderQ(){
+  const q=Qs[cur];
+  $("qnum").innerHTML=String(cur+1).padStart(2,"0")+"<span>/ 12</span>";
+  $("qbar").style.width=(cur/Qs.length*100)+"%";
+  $("qdot").style.background=`var(${CVAR[q.cat]})`;$("qcat").textContent=q.cat;
+  $("qbody").textContent=q.q;
+  $("ans").innerHTML="";
+  Ans.forEach(a=>{const b=document.createElement("button");b.type="button";
+    b.innerHTML=`<b>${a.v}</b>`;b.appendChild(document.createTextNode(a.l));
+    if(scores[cur]===a.v)b.classList.add("on");
+    b.onclick=()=>pick(a.v,b);$("ans").appendChild(b)});
+  $("back").disabled=cur===0;
+}
+function pick(v,b){scores[cur]=v;b.classList.add("on");
+  setTimeout(()=>{cur++;if(cur<Qs.length)renderQ();else result()},180)}
+$("start").onclick=()=>{cur=0;scores=[];show("s-q");renderQ()};
+$("back").onclick=()=>{if(cur>0){cur--;renderQ()}};
+
+const catScore=c=>Qs.reduce((s,q,i)=>q.cat===c?s+(scores[i]||0):s,0);
+function level(t){return Levels.find(l=>t<=l.max)}
+function result(){
+  const total=scores.reduce((a,b)=>a+b,0), lv=level(total);
+  $("r-eyebrow").textContent=`${mode} 진단 결과`;
+  $("r-total").textContent=total;$("r-level").textContent=lv.name;$("r-badge").textContent=lv.badge;
+  $("r-desc").textContent=lv.desc;$("r-rec").textContent=lv.rec;
+  $("r-ladder").innerHTML=Levels.map(l=>`<div class="${l===lv?"on":""}">${l.name.replace("AI ","")}</div>`).join("");
+  $("r-cats").innerHTML=CATS.map(c=>{const s=catScore(c),f=FB[c].find(x=>s>=x.r[0]&&s<=x.r[1]);
+    return `<div class="cb"><div class="cbh">${c}<span>${s} / 9</span></div>
+    <div class="track"><i style="width:${s/9*100}%;background:var(${CVAR[c]})"></i></div>
+    <p class="fb">${f.fb}</p><p class="act">${f.a}</p></div>`}).join("");
+  const low=[...CATS].sort((a,b)=>catScore(a)-catScore(b))[0];
+  $("r-module").textContent=`가장 낮은 영역은 ${low}입니다. `+MOD[low];
+  $("copied").textContent="";$("fallback").hidden=true;
+  show("s-r");
+}
+function resultText(){
+  const total=scores.reduce((a,b)=>a+b,0),lv=level(total);
+  return `[G3 책임매니저 AI 리터러시 ${mode} 진단]\n레벨: ${lv.name} (${total}/36점)\n`+CATS.map(c=>`${c} ${catScore(c)}/9`).join(" | ");
+}
+$("copy").onclick=()=>{const t=resultText();
+  const ok=()=>{$("copied").textContent="복사했습니다. 패들렛에 붙여 넣어 주세요."};
+  const fail=()=>{const f=$("fallback");f.value=t;f.hidden=false;f.focus();f.select();$("copied").textContent="자동 복사가 안 되는 화면입니다. 아래 글을 길게 눌러 복사해 주세요."};
+  try{navigator.clipboard.writeText(t).then(ok,fail)}catch(e){fail()}};
+$("again").onclick=()=>show("s-intro");
+
+/* prep checklist */
+let done={};try{done=JSON.parse(localStorage.getItem("g3prep")||"{}")}catch(e){done={}}
+function renderPrep(){
+  $("steps").innerHTML=PREP.map(p=>`<div class="step"><input type="checkbox" id="${p.id}" ${done[p.id]?"checked":""}>
+  <label for="${p.id}"><b>${p.t}</b><span class="fb">${p.d}</span>${p.u?`<a href="https://${p.u}" target="_blank" rel="noopener">${p.u}</a>`:""}</label></div>`).join("");
+  PREP.forEach(p=>$(p.id).onchange=e=>{done[p.id]=e.target.checked;try{localStorage.setItem("g3prep",JSON.stringify(done))}catch(_){ }prog()});
+  prog();
+}
+function prog(){const n=PREP.filter(p=>done[p.id]).length;$("prep-prog").textContent=n===PREP.length?"준비 완료입니다. 11월 11일에 뵙겠습니다.":`${PREP.length}개 중 ${n}개 완료`}
+$("go-prep").onclick=$("r-prep").onclick=()=>{renderPrep();show("s-prep")};
+$("prep-back").onclick=()=>show(scores.length===Qs.length?"s-r":"s-intro");
+if(location.hash==="#prep"){renderPrep();show("s-prep")}
+</script>
+</body>
+</html>
