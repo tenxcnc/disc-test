@@ -96,14 +96,6 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(-
 .copied{font-size:13px;color:var(--ok);min-height:1.2em;text-align:center}
 textarea.fallback{width:100%;min-height:120px;font:inherit;font-size:13px;border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--surface);color:var(--ink)}
 
-/* prep */
-.step{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;padding-block:14px;border-top:1px solid var(--line)}
-.step:first-child{border-top:0;padding-top:0}
-.step input{width:22px;height:22px;margin-top:3px;accent-color:var(--accent)}
-.step label{display:flex;flex-direction:column;gap:4px;cursor:pointer}
-.step label b{font-size:16px}
-.step a{color:var(--accent);font-family:var(--mono);font-size:14px;word-break:break-all}
-.prog{font-family:var(--mono);font-size:14px;color:var(--ink2)}
 @media (max-width:420px){h1{font-size:26px}.qbody{font-size:18px}.ans button{font-size:12px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -125,12 +117,11 @@ textarea.fallback{width:100%;min-height:120px;font:inherit;font-size:13px;border
     <div>
       <p class="small" style="margin-bottom:8px">진단 시점을 골라 주세요</p>
       <div class="seg" role="group" aria-label="진단 시점">
-        <button type="button" id="m-pre" aria-pressed="true">교육 전 (사전)</button>
-        <button type="button" id="m-post" aria-pressed="false">교육 후 (사후)</button>
+        <button type="button" id="m-pre" aria-pressed="true">교육 시작 (사전)</button>
+        <button type="button" id="m-post" aria-pressed="false">교육 마무리 (사후)</button>
       </div>
     </div>
     <button class="btn" id="start">진단 시작하기</button>
-    <button class="btn ghost" id="go-prep">교육 전 준비 체크리스트 보기</button>
     <p class="small">2026. 11. 11.(수) 증평 벨포레리조트 · TENX Coaching &amp; Consulting</p>
   </section>
 
@@ -172,16 +163,6 @@ textarea.fallback{width:100%;min-height:120px;font:inherit;font-size:13px;border
     <p class="copied" id="copied" role="status"></p>
     <textarea class="fallback" id="fallback" hidden readonly aria-label="복사할 결과"></textarea>
     <p class="small">복사한 결과는 강사가 안내하는 패들렛에 붙여 넣어 주세요. 이름은 적지 않아도 됩니다.</p>
-    <button class="btn ghost" id="r-prep">교육 전 준비 체크리스트 보기</button>
-  </section>
-
-  <section class="screen" id="s-prep" hidden>
-    <p class="eyebrow">교육 전 준비 · 11월 10일(화)까지</p>
-    <h2>구글 계정 하나로 세 가지 도구에 미리 로그인해 주세요</h2>
-    <p class="muted">교육 당일 가입하면 인증 메일과 보안 확인 때문에 10분 넘게 걸리기도 합니다. 아래 순서대로 한 번씩만 로그인해 두면 당일 바로 실습할 수 있습니다.</p>
-    <div class="card" id="steps"></div>
-    <p class="prog" id="prep-prog" role="status"></p>
-    <button class="btn ghost" id="prep-back">진단 화면으로 돌아가기</button>
   </section>
 
 </div>
@@ -205,7 +186,7 @@ const Qs=[
 ];
 const Ans=[{v:0,l:"전혀\n아니다"},{v:1,l:"아닌\n편이다"},{v:2,l:"그런\n편이다"},{v:3,l:"매우\n그렇다"}];
 const Levels=[
- {max:9,name:"AI 첫걸음",badge:"STARTER",desc:"AI가 아직 낯설지만, 이 진단을 끝까지 한 것 자체가 좋은 출발점입니다. 제조업에서도 AI 활용이 빠르게 늘고 있어 지금부터 기초를 쌓는 것이 중요합니다.",rec:"교육 전에 ChatGPT에 구글 계정으로 로그인하고, 오늘 쓸 메일 초안 하나를 AI에게 맡겨 보세요."},
+ {max:9,name:"AI 첫걸음",badge:"STARTER",desc:"AI가 아직 낯설지만, 이 진단을 끝까지 한 것 자체가 좋은 출발점입니다. 제조업에서도 AI 활용이 빠르게 늘고 있어 지금부터 기초를 쌓는 것이 중요합니다.",rec:"오늘 실습에서 메일 초안 하나를 AI에게 맡겨 보고, 결과를 직접 고쳐 보세요."},
  {max:18,name:"AI 탐색자",badge:"EXPLORER",desc:"관심을 갖고 조금씩 써 보는 단계입니다. 지금은 사용 빈도를 높이는 것이 가장 중요합니다. 내 업무 하나를 정해 작게 실험해 보세요.",rec:"매주 반복하는 업무 한 가지를 AI로 처리하는 루틴을 만들고, 결과를 팀원과 공유해 보세요."},
  {max:27,name:"AI 활용 실무자",badge:"PRACTITIONER",desc:"AI를 업무에 꽤 잘 녹이고 있습니다. 이제는 팀원에게 활용 범위를 넓히고, 도입 효과를 근거와 숫자로 설명하는 단계입니다.",rec:"담당 업무의 AI 활용 사례를 정리해 팀에 공유하거나, 반복 업무 자동화 파일럿을 기획해 보세요."},
  {max:33,name:"AI 전략가",badge:"STRATEGIST",desc:"AI를 전략적이고 비판적으로 다루는 수준입니다. 팀과 조직의 AI 역량을 키우는 데 앞장설 수 있는 위치입니다.",rec:"팀 AI 활용 가이드라인을 만들거나, 팀원 대상 짧은 AI 활용 세션을 직접 열어 보세요."},
@@ -235,20 +216,12 @@ const MOD={
  "전략적 판단력":"M1 위임 진단 워크시트와 M3 우리 팀 AI 도입 계획서에 시간을 가장 많이 쓰세요.",
  "리스크·윤리 관리":"M2의 입력 전 보안 기준과 AI 검증 3단계(출처 요구·교차 검증·수치 검산)를 집중해서 보세요."
 };
-const PREP=[
- {id:"p1",t:"구글 계정 준비",d:"Gmail 계정이 없다면 하나 만들어 주세요. 개인 계정도 괜찮습니다.",u:"accounts.google.com"},
- {id:"p2",t:"ChatGPT 로그인",d:"접속 후 로그인 → 'Google로 계속하기'를 눌러 구글 계정으로 들어갑니다.",u:"chatgpt.com"},
- {id:"p3",t:"Gemini 로그인",d:"접속 후 오른쪽 위 로그인 → 같은 구글 계정을 선택합니다. 교차 검증에 씁니다.",u:"gemini.google.com"},
- {id:"p4",t:"NotebookLM 로그인",d:"접속 후 같은 구글 계정으로 로그인하고 '새 노트북 만들기' 화면이 열리는지 확인합니다.",u:"notebooklm.google.com"},
- {id:"p5",t:"사내 코파일럿 로그인 확인",d:"업무용 노트북에서 회사 계정으로 코파일럿 채팅이 열리는지 확인합니다.",u:"copilot.microsoft.com"},
- {id:"p6",t:"노트북 지참",d:"교육 당일 노트북과 충전기를 챙겨 주세요. 업무용 노트북에서 외부 AI 접속이 막히면 개인 노트북도 괜찮습니다.",u:""}
-];
 
 const $=id=>document.getElementById(id);
 const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
 let mode="사전", cur=0, scores=[];
 
-function show(id){["s-intro","s-q","s-r","s-prep"].forEach(s=>$(s).hidden=s!==id);window.scrollTo(0,0)}
+function show(id){["s-intro","s-q","s-r"].forEach(s=>$(s).hidden=s!==id);window.scrollTo(0,0)}
 function setMode(m){mode=m;$("m-pre").setAttribute("aria-pressed",m==="사전");$("m-post").setAttribute("aria-pressed",m==="사후")}
 $("m-pre").onclick=()=>setMode("사전");$("m-post").onclick=()=>setMode("사후");
 
@@ -299,18 +272,6 @@ $("copy").onclick=()=>{const t=resultText();
   try{navigator.clipboard.writeText(t).then(ok,fail)}catch(e){fail()}};
 $("again").onclick=()=>show("s-intro");
 
-/* prep checklist */
-let done={};try{done=JSON.parse(localStorage.getItem("g3prep")||"{}")}catch(e){done={}}
-function renderPrep(){
-  $("steps").innerHTML=PREP.map(p=>`<div class="step"><input type="checkbox" id="${p.id}" ${done[p.id]?"checked":""}>
-  <label for="${p.id}"><b>${p.t}</b><span class="fb">${p.d}</span>${p.u?`<a href="https://${p.u}" target="_blank" rel="noopener">${p.u}</a>`:""}</label></div>`).join("");
-  PREP.forEach(p=>$(p.id).onchange=e=>{done[p.id]=e.target.checked;try{localStorage.setItem("g3prep",JSON.stringify(done))}catch(_){ }prog()});
-  prog();
-}
-function prog(){const n=PREP.filter(p=>done[p.id]).length;$("prep-prog").textContent=n===PREP.length?"준비 완료입니다. 11월 11일에 뵙겠습니다.":`${PREP.length}개 중 ${n}개 완료`}
-$("go-prep").onclick=$("r-prep").onclick=()=>{renderPrep();show("s-prep")};
-$("prep-back").onclick=()=>show(scores.length===Qs.length?"s-r":"s-intro");
-if(location.hash==="#prep"){renderPrep();show("s-prep")}
 </script>
 </body>
 </html>
