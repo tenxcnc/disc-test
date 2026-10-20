@@ -279,7 +279,7 @@ function result(){
   $("r-eyebrow").textContent=`${mode} 진단 결과`;
   $("r-total").textContent=total;$("r-level").textContent=lv.name;$("r-badge").textContent=lv.badge;
   $("r-desc").textContent=lv.desc;$("r-rec").textContent=lv.rec;
-  $("r-ladder").innerHTML=Levels.map(l=>`<div class="${l===lv?"on":""}">${l.name.replace("AI ","")}</div>`).join("");
+  $("r-ladder").innerHTML=Levels.map(l=>`<div class="${l===lv?"on":""}">${l.name.replace("AI ","").replace("활용 ","")}</div>`).join("");
   $("r-cats").innerHTML=CATS.map(c=>{const s=catScore(c),f=FB[c].find(x=>s>=x.r[0]&&s<=x.r[1]);
     return `<div class="cb"><div class="cbh">${c}<span>${s} / 9</span></div>
     <div class="track"><i style="width:${s/9*100}%;background:var(${CVAR[c]})"></i></div>
