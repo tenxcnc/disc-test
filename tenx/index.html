@@ -14,12 +14,12 @@
 <style>
 @font-face{font-family:"Pretendard";font-weight:45 920;font-style:normal;font-display:swap;src:url("fonts/PretendardVariable.woff2") format("woff2-variations"),url("fonts/PretendardVariable.woff2") format("woff2")}
 /* 로고는 원본 파일(img/logo-*.png)만 쓴다. 색을 바꾸거나 다시 그리지 않는다. */
-/* 레이아웃 : 블랙 바탕에 네온그린 한 색. 히어로의 바뀌는 단어와 사업 영역 카드 필터가 중심이고, 나머지는 선과 활자로 조용하게 둔다. 단일 다크 테마. */
+/* 레이아웃 : 온전한 블랙 바탕. 네온그린은 글자와 버튼 강조에만 쓰고 번짐·그라데이션 배경은 두지 않는다. 히어로의 바뀌는 단어와 사업 영역 카드 필터가 중심이고, 나머지는 선과 활자로 조용하게 둔다. 단일 다크 테마. */
 :root{
   color-scheme:dark;
-  --bg:#080A08; --surface:#101310; --surface-2:#171B17; --line:#242A24; --line-2:#343C34;
-  --fg:#F3F6F1; --fg-2:#A3ADA3; --fg-3:#6F796F;
-  --neon:#B4FF39; --neon-dim:rgba(180,255,57,.12); --neon-ink:#081004;
+  --bg:#000000; --surface:#0E0E0E; --surface-2:#171717; --line:#232323; --line-2:#383838;
+  --fg:#FFFFFF; --fg-2:#ABABAB; --fg-3:#7A7A7A;
+  --neon:#B4FF39; --neon-dim:rgba(180,255,57,.12); --neon-ink:#000000; --top-bg:rgba(0,0,0,.86);
   --font:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
   --wrap:1200px; --r:16px;
 }
@@ -38,14 +38,14 @@ h1,h2,h3{font-weight:800;line-height:1.22;letter-spacing:-.035em;text-wrap:balan
 .neon{color:var(--neon)}
 .btn{display:inline-flex;align-items:center;gap:10px;font:700 16px/1 var(--font);padding:17px 26px;border-radius:999px;text-decoration:none;border:1px solid transparent;cursor:pointer;transition:transform .15s ease,box-shadow .2s ease,background .15s ease,border-color .15s ease}
 .btn-neon{background:var(--neon);color:var(--neon-ink)}
-.btn-neon:hover{transform:translateY(-2px);box-shadow:0 0 0 6px var(--neon-dim),0 12px 40px rgba(180,255,57,.25)}
+.btn-neon:hover{transform:translateY(-2px)}
 .btn-ghost{border-color:var(--line-2);color:var(--fg)}
 .btn-ghost:hover{border-color:var(--neon);color:var(--neon)}
 .btn .arr{transition:transform .15s ease}
 .btn:hover .arr{transform:translateX(4px)}
 
 /* 헤더 */
-.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(8,10,8,.78);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--top-bg);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
 .top-in{display:flex;align-items:center;gap:28px;min-height:68px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;margin-right:auto}
 .brand img{height:30px;width:auto;flex:none;display:block}
@@ -59,8 +59,6 @@ h1,h2,h3{font-weight:800;line-height:1.22;letter-spacing:-.035em;text-wrap:balan
 
 /* 히어로 */
 .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
-.hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:64px 64px;opacity:.45;-webkit-mask-image:radial-gradient(ellipse 70% 80% at 70% 20%,#000 20%,transparent 75%);mask-image:radial-gradient(ellipse 70% 80% at 70% 20%,#000 20%,transparent 75%)}
-.hero::after{content:"";position:absolute;right:-12%;top:-30%;width:720px;height:720px;border-radius:50%;background:radial-gradient(circle,rgba(180,255,57,.20),transparent 62%);pointer-events:none}
 .hero-in{position:relative;z-index:1;padding-block:84px 72px;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:56px;align-items:center}
 .hero h1{font-size:clamp(38px,6.3vw,86px);font-weight:900;line-height:1.14;letter-spacing:-.045em;margin-block:22px 26px}
 .rot{display:inline-block;color:var(--neon);border-bottom:.07em solid var(--neon);padding-bottom:.02em;margin-right:.08em;transition:opacity .28s ease,transform .28s ease}
@@ -74,8 +72,8 @@ h1,h2,h3{font-weight:800;line-height:1.22;letter-spacing:-.035em;text-wrap:balan
 /* 사진 */
 .shot{position:relative;margin:0;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);background:var(--surface)}
 .shot img{display:block;width:100%;height:100%;object-fit:cover}
-.shot figcaption{position:absolute;inset:auto 0 0 0;padding:48px 18px 16px;background:linear-gradient(transparent,rgba(0,0,0,.86));font-size:14px;line-height:1.5;color:var(--fg-2)}
-.shot figcaption b{display:block;font-size:16px;font-weight:700;color:var(--fg)}
+.shot figcaption{position:absolute;inset:auto 0 0 0;padding:14px 18px 15px;background:rgba(0,0,0,.72);font-size:14px;line-height:1.5;color:#C9C9C9}
+.shot figcaption b{display:block;font-size:16px;font-weight:700;color:#fff}
 .hero .shot{height:440px}
 
 /* 고객사 흐름 */
@@ -114,7 +112,7 @@ h1,h2,h3{font-weight:800;line-height:1.22;letter-spacing:-.035em;text-wrap:balan
 .card p{font-size:15px;line-height:1.6;color:var(--fg-2)}
 .card .ref{margin-top:auto;padding-top:14px;border-top:1px solid var(--line);font-size:13px;line-height:1.55;color:var(--fg-3)}
 .card .ref b{color:var(--fg-2);font-weight:600}
-.card.feat{grid-column:span 2;border-color:var(--neon);background:linear-gradient(135deg,rgba(180,255,57,.10),var(--surface) 55%)}
+.card.feat{grid-column:span 2;border-color:var(--neon)}
 .card.feat h3{font-size:26px}
 .card.feat p{font-size:16px}
 .card.feat ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 20px;margin-top:2px}
@@ -185,7 +183,6 @@ h1,h2,h3{font-weight:800;line-height:1.22;letter-spacing:-.035em;text-wrap:balan
 
 /* 문의 */
 .cta{position:relative;overflow:hidden;background:var(--surface);border-top:1px solid var(--line)}
-.cta::before{content:"";position:absolute;left:-10%;bottom:-50%;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(180,255,57,.14),transparent 62%);pointer-events:none}
 .contact{position:relative;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:64px}
 .contact h2{font-size:clamp(34px,4.8vw,64px);font-weight:900;margin-block:14px 18px}
 .contact .how{color:var(--fg-2);max-width:26em}
@@ -452,7 +449,7 @@ footer{border-top:1px solid var(--line);color:var(--fg-3);font-size:14px}
         <li><small>크루즈 여행</small><h3>크루즈더베스트</h3><p>매일 아침 다른 나라에서 시작합니다</p></li>
         <li><small>피아노 교육</small><h3>라라음악교습소</h3><p>피아노를 잘 치는 것을 넘어, 음악을 오래 사랑하도록</p></li>
       </ol>
-      <p class="count">소개서 첫 장의 문구를 그대로 옮겼습니다. 우리 회사 소개서가 필요하시면 <a class="more" href="#contact" data-go="brand" style="color:var(--neon)">문의해 주세요</a>.</p>
+      <p class="count">소개서 첫 장의 문구를 그대로 옮겼습니다. 우리 회사 소개서가 필요하시면 <a class="more" href="#contact" data-go="brand">문의해 주세요</a>.</p>
     </div>
   </section>
 
@@ -558,7 +555,7 @@ footer{border-top:1px solid var(--line);color:var(--fg-3);font-size:14px}
 <footer>
   <div class="wrap foot">
     <div><img src="img/logo-lockup.png" alt="TENX" width="284" height="251" loading="lazy"><p style="margin-top:14px">텐엑스 코칭컨설팅 · 대표 박세연</p><p>사업자등록번호 567-21-01356</p></div>
-    <div><p>경기도 부천시 원미구 석천로 13, 광명빌딩 506호</p><p>010-3226-2008 · 0507-1321-2008 · tenxcnc@gmail.com</p><p>© 2026 TENX Coaching &amp; Consulting</p></div>
+    <div><p>경기도 부천시 원미구 석천로 13, 광명빌딩 506호</p><p>010-3226-2008 · 0507-1321-2008 · tenxcnc@gmail.com</p><p>© 2026 TENX Coaching &amp; Consulting · <a href="index-light.html">화이트 버전 보기</a></p></div>
   </div>
 </footer>
 
