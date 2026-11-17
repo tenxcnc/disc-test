@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 교육 문의 | 텐엑스 코칭컨설팅</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --mint:#2de082;
+  --dark:#111214;--dark2:#18191d;--dark3:#1e2026;--dark4:#252830;
+  --border:rgba(255,255,255,0.10);--border2:rgba(255,255,255,0.18);
+  --white:#fff;
+  --gray1:rgba(255,255,255,0.95);--gray2:rgba(255,255,255,0.75);
+  --gray3:rgba(255,255,255,0.50);--gray4:rgba(255,255,255,0.20);
+  --text-input:#0d1117;--input-bg:#f6f8fa;--input-border:#d0d7de;
+  --shadow-card:0 8px 48px rgba(0,0,0,0.5);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:"Noto Sans KR",sans-serif;background:var(--dark);color:var(--white);min-height:100vh;line-height:1.65;}
+
+/* ── HERO ── */
+.hero{background:var(--dark);position:relative;overflow:hidden;}
+.hero::before{content:"";position:absolute;top:-200px;right:-200px;width:700px;height:700px;background:radial-gradient(circle,rgba(45,224,130,0.08) 0%,transparent 65%);pointer-events:none;}
+.hero::after{content:"";position:absolute;bottom:-100px;left:-100px;width:450px;height:450px;background:radial-gradient(circle,rgba(45,224,130,0.05) 0%,transparent 65%);pointer-events:none;}
+.hero-inner{max-width:1180px;margin:0 auto;padding:0 36px;position:relative;z-index:1;}
+
+/* topbar */
+.hero-topbar-wrap{background:#ffffff;border-bottom:1px solid #eeeeee;width:100%;}
+.hero-topbar{display:flex;align-items:center;justify-content:space-between;max-width:1180px;margin:0 auto;padding:14px 36px;}
+.logo-area{display:flex;align-items:center;gap:16px;}
+.logo-img{height:50px;width:auto;object-fit:contain;}
+.logo-sep{width:1px;height:36px;background:#e5e7eb;}
+.logo-meta{line-height:1.45;}
+.logo-meta strong{display:block;font-size:17px;font-weight:800;color:#111214;letter-spacing:-0.3px;}
+.logo-meta span{font-size:13px;color:#6b7280;letter-spacing:0.4px;}
+.topbar-contact{text-align:right;}
+.topbar-contact .t-label{font-size:12px;color:#888888;margin-bottom:6px;letter-spacing:0.5px;text-transform:uppercase;}
+.topbar-contact .t-links{display:flex;gap:18px;justify-content:flex-end;align-items:center;}
+.topbar-contact a,.topbar-contact .copy-btn{font-size:15px;font-weight:600;color:#111214;text-decoration:none;transition:color 0.2s;}
+.topbar-contact a:hover{color:#1abf63;}
+.topbar-contact .t-sep{color:#cccccc;font-size:13px;}
+
+/* hero body */
+.hero-body{padding:56px 0 60px;text-align:center;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(45,224,130,0.12);border:1px solid rgba(45,224,130,0.35);color:var(--mint);font-size:13px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;padding:7px 20px;border-radius:100px;margin-bottom:24px;}
+.hero-body h1{font-size:clamp(34px,5vw,58px);font-weight:900;line-height:1.13;letter-spacing:-1.5px;margin-bottom:18px;word-break:keep-all;}
+.hero-body h1 em{font-style:normal;color:var(--mint);}
+.hero-body p{font-size:19px;font-weight:300;color:var(--gray2);line-height:1.75;}
+.hero-stats{display:flex;justify-content:center;gap:48px;margin-top:40px;padding-top:36px;border-top:1px solid var(--border);}
+.stat-item{text-align:center;}
+.stat-num{font-size:28px;font-weight:900;color:var(--mint);letter-spacing:-0.5px;display:block;}
+.stat-lbl{font-size:13px;color:var(--gray3);margin-top:4px;}
+
+/* ── MAIN ── */
+.main{max-width:1180px;margin:0 auto;padding:48px 36px 80px;display:grid;grid-template-columns:1fr 420px;gap:36px;align-items:start;}
+@media(max-width:940px){.main{grid-template-columns:1fr;}.sidebar{order:-1;}}
+
+/* ── FORM CARD (흰 배경, 유지) ── */
+.form-card{background:var(--white);border-radius:22px;padding:48px;box-shadow:var(--shadow-card);color:var(--text-input);}
+.form-card-header{display:flex;align-items:center;gap:14px;margin-bottom:10px;}
+.fcard-icon{width:50px;height:50px;background:var(--dark);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;border:2px solid rgba(45,224,130,0.4);}
+.form-card h2{font-size:24px;font-weight:800;color:var(--text-input);letter-spacing:-0.3px;}
+.form-card .sub{font-size:16px;color:#6b7280;margin-bottom:36px;padding-left:64px;margin-top:4px;}
+
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+@media(max-width:580px){.form-row{grid-template-columns:1fr;}}
+.field{margin-bottom:24px;}
+label.lbl{display:block;font-size:16px;font-weight:700;color:#1a2332;margin-bottom:9px;letter-spacing:-0.1px;}
+label.lbl .req{color:#2de082;margin-left:3px;}
+input[type=text],input[type=tel],input[type=email],select,textarea{
+  width:100%;padding:14px 18px;border:1.5px solid var(--input-border);border-radius:11px;
+  font-family:"Noto Sans KR",sans-serif;font-size:16px;color:var(--text-input);
+  background:var(--input-bg);transition:all 0.18s;outline:none;
+  appearance:none;-webkit-appearance:none;
+}
+input:focus,select:focus,textarea:focus{border-color:#2de082;background:#fff;box-shadow:0 0 0 3px rgba(45,224,130,0.18);}
+input::placeholder,textarea::placeholder{color:#9ca3af;font-weight:300;}
+select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239ca3af' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 16px center;
+  padding-right:40px;background-color:var(--input-bg);cursor:pointer;
+}
+textarea{resize:vertical;min-height:120px;}
+
+/* ── 과정 선택 (체크 버그 수정) ── */
+.course-grid-ai{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.course-grid-biz{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+@media(max-width:580px){.course-grid-ai,.course-grid-biz{grid-template-columns:repeat(2,1fr);}}
+
+.course-item{
+  position:relative;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:18px 12px;
+  border:2px solid var(--input-border);border-radius:13px;
+  cursor:pointer;user-select:none;
+  background:var(--input-bg);
+  transition:all 0.18s;min-height:72px;
+}
+.course-item:hover{border-color:#2de082;background:#f0fdf6;}
+.course-item input[type=checkbox]{
+  position:absolute;opacity:0;width:0;height:0;pointer-events:none;
+}
+.course-title{font-size:15px;font-weight:600;color:#374151;line-height:1.35;transition:color 0.18s;pointer-events:none;}
+.check-mark{
+  display:none;
+  position:absolute;top:8px;right:8px;
+  width:20px;height:20px;
+  background:#2de082;border-radius:50%;
+  align-items:center;justify-content:center;
+  font-size:11px;color:#111;font-weight:900;
+}
+.course-item.selected{border-color:#2de082;background:linear-gradient(135deg,#f0fdf6,#ecfdf5);box-shadow:0 2px 12px rgba(45,224,130,0.2);}
+.course-item.selected .course-title{color:#047857;font-weight:700;}
+.course-item.selected .check-mark{display:flex;}
+
+/* ── 동의 ── */
+.divider{border:none;border-top:1px solid #e5e7eb;margin:30px 0;}
+.consent-box{background:#f9fafb;border:1px solid #e5e7eb;border-radius:11px;padding:16px 18px;font-size:14px;color:#6b7280;line-height:1.7;margin-bottom:16px;}
+.consent-row{display:flex;align-items:center;gap:12px;margin-bottom:12px;font-size:16px;font-weight:500;color:#1a2332;cursor:pointer;}
+.consent-row input[type=checkbox]{width:20px;height:20px;padding:0;border-radius:5px;flex-shrink:0;accent-color:#2de082;cursor:pointer;}
+.opt-tag{font-size:12px;padding:3px 10px;border-radius:20px;background:#f3f4f6;color:#6b7280;margin-left:6px;font-weight:500;}
+
+/* ── 제출 버튼 ── */
+.submit-btn{
+  width:100%;padding:19px;
+  background:var(--mint);color:#0d1117;
+  font-family:"Noto Sans KR",sans-serif;
+  font-size:17px;font-weight:900;border:none;
+  border-radius:13px;cursor:pointer;letter-spacing:0.2px;
+  transition:all 0.22s;margin-top:8px;
+}
+.submit-btn:hover{background:#1abf63;transform:translateY(-2px);box-shadow:0 8px 28px rgba(45,224,130,0.35);}
+.submit-btn:active{transform:translateY(0);}
+.submit-btn:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+
+/* ── 성공 ── */
+.success-msg{display:none;text-align:center;padding:64px 24px;animation:fadeUp 0.4s ease;}
+.success-msg.show{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.success-icon{width:88px;height:88px;background:linear-gradient(135deg,#dcfce7,#d1fae5);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 22px;font-size:40px;}
+.success-msg h3{font-size:26px;font-weight:800;color:var(--text-input);margin-bottom:14px;}
+.success-msg p{color:#6b7280;font-size:17px;line-height:1.8;}
+.success-msg a{color:#059669;font-weight:700;text-decoration:none;}
+
+/* ── 에러 ── */
+.err{color:#dc2626;font-size:13px;margin-top:6px;display:none;}
+.field.error input,.field.error select,.field.error textarea{border-color:#dc2626;background:#fff5f5;}
+.field.error .err{display:block;}
+.spinner{display:inline-block;width:18px;height:18px;border:2px solid rgba(0,0,0,0.15);border-top-color:#0d1117;border-radius:50%;animation:spin 0.7s linear infinite;margin-right:8px;vertical-align:middle;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* ── SIDEBAR ── */
+.sidebar{display:flex;flex-direction:column;gap:18px;}
+
+/* 다크 카드 – 더 밝게 */
+.s-card{
+  background:#232730;
+  border:1px solid rgba(255,255,255,0.14);
+  border-radius:18px;padding:26px;
+}
+.s-card-label{font-size:12px;font-weight:700;color:var(--mint);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
+.s-card h3{font-size:17px;font-weight:700;color:var(--white);margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.12);}
+
+/* stat bar */
+.stat-bar{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.sbar-item{background:#2a2f3a;border:1px solid rgba(255,255,255,0.10);border-radius:12px;padding:16px 12px;text-align:center;}
+.sbar-num{font-size:24px;font-weight:900;color:var(--mint);display:block;letter-spacing:-0.5px;}
+.sbar-lbl{font-size:13px;color:rgba(255,255,255,0.55);margin-top:4px;}
+
+/* 교육 특징 태그 그리드 (2열 양쪽정렬, 흰 텍스트) */
+.tag-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+.tag-btn{
+  display:block;text-align:center;
+  background:#2a2f3a;
+  border:1px solid rgba(255,255,255,0.18);
+  color:rgba(255,255,255,0.90);
+  font-size:15px;font-weight:600;
+  padding:12px 10px;border-radius:10px;
+  transition:all 0.18s;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.tag-btn:hover{background:rgba(45,224,130,0.15);border-color:var(--mint);color:var(--mint);}
+
+/* 커리큘럼 모듈 (AI 페이지) */
+.module-card{background:#2a2f3a;border:1px solid rgba(255,255,255,0.10);border-radius:13px;padding:18px;margin-bottom:12px;}
+.module-card:last-child{margin-bottom:0;}
+.module-card:hover{border-color:rgba(45,224,130,0.3);}
+.module-badge{display:inline-flex;align-items:center;gap:10px;margin-bottom:10px;}
+.m-tag{background:var(--mint);color:#111;font-size:12px;font-weight:900;padding:4px 11px;border-radius:7px;letter-spacing:0.3px;}
+.m-title{font-size:16px;font-weight:700;color:var(--white);}
+.m-list{list-style:none;margin-top:10px;}
+.m-list li{font-size:14px;color:rgba(255,255,255,0.7);padding:5px 0 5px 16px;position:relative;border-top:1px solid rgba(255,255,255,0.07);}
+.m-list li:first-child{border-top:none;}
+.m-list li::before{content:"→";position:absolute;left:0;color:var(--mint);font-size:12px;top:6px;}
+
+/* 문의절차 + 직접문의 (2컬럼) */
+.process-contact-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.pc-card{background:#232730;border:1px solid rgba(255,255,255,0.14);border-radius:18px;padding:24px;}
+.pc-label{font-size:12px;font-weight:700;color:var(--mint);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
+.pc-card h3{font-size:16px;font-weight:700;color:var(--white);margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.10);}
+.process{display:flex;flex-direction:column;}
+.p-step{display:flex;align-items:flex-start;gap:11px;position:relative;padding-bottom:16px;}
+.p-step:last-child{padding-bottom:0;}
+.p-step:not(:last-child)::after{content:"";position:absolute;left:11px;top:26px;width:2px;height:calc(100% - 10px);background:rgba(255,255,255,0.12);}
+.p-num{width:24px;height:24px;border-radius:50%;background:var(--mint);color:#111;font-size:12px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1;position:relative;}
+.p-info{padding-top:2px;}
+.p-title{font-size:14px;font-weight:600;color:var(--white);line-height:1.3;}
+.p-desc{font-size:12px;color:rgba(255,255,255,0.45);margin-top:3px;line-height:1.4;}
+.contact-row{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;}
+.contact-row:last-child{margin-bottom:0;}
+.c-icon{width:34px;height:34px;border-radius:9px;background:#2a2f3a;border:1px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.c-lbl{font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:3px;}
+.c-val{font-size:14px;font-weight:600;color:rgba(255,255,255,0.88);}
+.c-val a{color:var(--mint);text-decoration:none;}
+.resp-pill{margin-top:16px;background:rgba(45,224,130,0.12);border:1px solid rgba(45,224,130,0.3);border-radius:9px;padding:11px 14px;font-size:13px;color:var(--mint);font-weight:700;text-align:center;line-height:1.5;}
+
+footer{background:#0d0f12;border-top:1px solid var(--border);color:rgba(255,255,255,0.4);text-align:center;padding:28px 20px;font-size:14px;font-weight:300;line-height:1.9;}
+footer a{color:rgba(255,255,255,0.65);text-decoration:none;} footer .copy-btn{color:rgba(255,255,255,0.65);font-weight:400;}
+footer strong{color:rgba(255,255,255,0.85);}
+
+
+/* ── MOBILE ── */
+@media(max-width:680px){
+  .hero-topbar{flex-direction:column;align-items:flex-start;gap:10px;padding:14px 20px;}
+  .topbar-contact{text-align:left;width:100%;}
+  .topbar-contact .t-links{justify-content:flex-start;flex-wrap:wrap;gap:10px;}
+  .hero-inner{padding:0 20px;}
+  .hero-body{padding:32px 0 36px;}
+  .hero-body h1{font-size:clamp(26px,7.5vw,40px);letter-spacing:-0.5px;}
+  .hero-body p{font-size:16px;}
+  .hero-stats{gap:14px;flex-wrap:wrap;justify-content:center;}
+  .stat-num{font-size:22px;}
+  .main{padding:20px 16px 48px;gap:20px;}
+  .form-card{padding:22px 18px;}
+  .fcard-icon{display:none;}
+  .form-card .sub{padding-left:0;}
+  .form-row{grid-template-columns:1fr;}
+  .course-grid-ai{grid-template-columns:repeat(3,1fr);}
+  .course-grid-biz{grid-template-columns:repeat(2,1fr);}
+  .submit-btn{font-size:16px;padding:16px;}
+  .process-contact-row{grid-template-columns:1fr;}
+  .tag-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:400px){
+  .hero-topbar .logo-meta{display:none;}
+  .hero-topbar .logo-sep{display:none;}
+  .course-grid-ai{grid-template-columns:1fr 1fr;}
+}
+
+
+
+/* 토스트 팝업 */
+#copy-toast {
+  position: fixed;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: #1a1a1a;
+  color: #2de082;
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 13px 28px;
+  border-radius: 40px;
+  border: 1.5px solid rgba(45,224,130,0.4);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  white-space: nowrap;
+}
+#copy-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* 흰색 topbar 내 링크 */
+.hero-topbar 
+/* 사이드바(다크) 내 링크 */
+.c-val 
+
+
+/* ── COPY STYLE ── */
+.copy-btn{cursor:pointer;display:inline-flex;align-items:center;gap:5px;padding:2px 6px;border-radius:5px;transition:background 0.15s,color 0.15s;user-select:none;}
+.copy-btn:hover{background:rgba(45,224,130,0.13);color:#2de082 !important;}
+.hero-topbar .copy-btn:hover{background:rgba(0,0,0,0.07);color:#1abf63 !important;}
+#copy-toast{position:fixed;bottom:36px;left:50%;transform:translateX(-50%) translateY(20px);background:#1a1a1a;color:#2de082;font-family:"Noto Sans KR",sans-serif;font-size:15px;font-weight:700;padding:13px 28px;border-radius:40px;border:1.5px solid rgba(45,224,130,0.4);box-shadow:0 8px 32px rgba(0,0,0,0.35);opacity:0;pointer-events:none;z-index:9999;transition:opacity 0.22s ease,transform 0.22s ease;white-space:nowrap;}
+#copy-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+<a href="../index.html" style="position:fixed;left:14px;bottom:14px;z-index:999;background:#111214;color:#fff;border:1px solid #3a3d45;border-radius:999px;padding:10px 16px;font-size:13px;font-weight:600;text-decoration:none">← 텐엑스 홈페이지</a>
+
+
+<div class="hero">
+  <div class="hero-inner">
+  </div><!-- close hero-inner early -->
+  <div class="hero-topbar-wrap">
+    <div class="hero-topbar">
+      <div class="logo-area">
+        <img src="data:image/jpeg;base64,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" alt="텐엑스" class="logo-img">
+        <div class="logo-sep"></div>
+        <div class="logo-meta">
+          <strong>텐엑스 코칭컨설팅</strong>
+          <span>TENX Coaching &amp; Consulting</span>
+        </div>
+      </div>
+      <div class="topbar-contact">
+        <div class="t-label">국제 인증 받은 전문 코치가 직접 연락드립니다</div>
+        <div class="t-links">
+          <span class="copy-btn" onclick="copyText('010-3226-2008')" title="클릭하여 복사">010-3226-2008</span>
+          <span class="t-sep">|</span>
+          <span class="copy-btn" onclick="copyText('tenxcnc@gmail.com')" title="클릭하여 복사">tenxcnc@gmail.com</span>
+        </div>
+      </div>
+    </div>
+  </div><!-- /hero-topbar-wrap -->
+  <div class="hero-inner">
+    <div class="hero-body">
+      <div class="hero-eyebrow">🤖 AI Education Inquiry</div>
+      <h1>AI 교육, <em>지금 바로</em><br>시작하세요</h1>
+      <p>업무에 AI를 바로 적용하는 실전형 교육<br>국제 인증 받은 전문 코치가 귀사만의 커리큘럼을 설계합니다</p>
+      <div class="hero-stats">
+        <div class="stat-item"><span class="stat-num">5,000+</span><div class="stat-lbl">누적 수강생</div></div>
+        <div class="stat-item"><span class="stat-num">22+</span><div class="stat-lbl">년 코칭 경력</div></div>
+        <div class="stat-item"><span class="stat-num">ICF PCC</span><div class="stat-lbl">국제 인증</div></div>
+        <div class="stat-item"><span class="stat-num">B2B</span><div class="stat-lbl">기업 특화</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <!-- FORM -->
+  <div class="form-card">
+    <div id="form-wrap">
+      <div class="form-card-header">
+        <div class="fcard-icon">🤖</div>
+        <h2>AI 교육 문의하기</h2>
+      </div>
+      <p class="sub">작성 후 제출하시면 1영업일 이내 담당자가 연락드립니다</p>
+
+      <div class="form-row">
+        <div class="field" id="f-company">
+          <label class="lbl">회사명 <span class="req">*</span></label>
+          <input type="text" id="company" placeholder="(주)회사명">
+          <div class="err">회사명을 입력해주세요</div>
+        </div>
+        <div class="field" id="f-name">
+          <label class="lbl">성함 <span class="req">*</span></label>
+          <input type="text" id="name" placeholder="홍길동">
+          <div class="err">성함을 입력해주세요</div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field" id="f-phone">
+          <label class="lbl">연락처 <span class="req">*</span></label>
+          <input type="tel" id="phone" placeholder="010-0000-0000">
+          <div class="err">연락처를 입력해주세요</div>
+        </div>
+        <div class="field" id="f-email">
+          <label class="lbl">이메일 <span class="req">*</span></label>
+          <input type="email" id="email" placeholder="company@email.com">
+          <div class="err">올바른 이메일을 입력해주세요</div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label class="lbl">직함 / 부서</label>
+          <input type="text" id="position" placeholder="예) HR팀장, 교육담당자">
+        </div>
+        <div class="field" id="f-headcount">
+          <label class="lbl">예상 교육 인원 <span class="req">*</span></label>
+          <select id="headcount">
+            <option value="">선택해주세요</option>
+            <option>10명 미만</option><option>10~29명</option>
+            <option>30~49명</option><option>50~99명</option><option>100명 이상</option>
+          </select>
+          <div class="err">교육 인원을 선택해주세요</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="lbl">희망 교육 과정 <span class="req">*</span> <span style="font-size:14px;color:#9ca3af;font-weight:400">복수 선택 가능</span></label>
+        <div class="course-grid-ai">
+          <div class="course-item" onclick="toggleCourse(this)">
+            <input type="checkbox" value="AI 기초과정">
+            <div class="check-mark">✓</div>
+            <div class="course-title">AI 기초과정</div>
+          </div>
+          <div class="course-item" onclick="toggleCourse(this)">
+            <input type="checkbox" value="AI활용 업무 생산성 향상">
+            <div class="check-mark">✓</div>
+            <div class="course-title">AI활용 업무<br>생산성 향상</div>
+          </div>
+          <div class="course-item" onclick="toggleCourse(this)">
+            <input type="checkbox" value="부서별 맞춤 AI">
+            <div class="check-mark">✓</div>
+            <div class="course-title">부서별<br>맞춤 AI</div>
+          </div>
+        </div>
+        <div class="err" id="err-course" style="margin-top:8px">교육 과정을 선택해주세요</div>
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <label class="lbl">희망 교육 일정</label>
+          <input type="text" id="schedule" placeholder="예) 2025년 6월, 협의 가능">
+        </div>
+        <div class="field">
+          <label class="lbl">희망 교육 방식</label>
+          <select id="method">
+            <option value="">선택해주세요</option>
+            <option>집합교육 (오프라인)</option><option>온라인 라이브</option>
+            <option>혼합형 (블렌디드)</option><option>미정 / 협의</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label class="lbl">문의 내용</label>
+        <textarea id="message" placeholder="교육 목적, 조직 현황, 특별 요청 사항 등을 자유롭게 작성해주세요"></textarea>
+      </div>
+
+      
+<hr class="divider">
+<div class="consent-box">
+  <strong>개인정보 수집 및 이용 안내</strong><br>
+  수집 항목: 회사명, 성함, 연락처, 이메일 &nbsp;|&nbsp; 수집 목적: 교육 상담 및 제안서 발송<br>
+  보유 기간: 문의 처리 완료 후 1년 &nbsp;|&nbsp; 제3자 미제공
+</div>
+<label class="consent-row">
+  <input type="checkbox" id="privacy">
+  개인정보 수집 및 이용에 동의합니다 <span class="req" style="margin-left:2px;color:#2de082">*</span>
+</label>
+<div class="err" id="err-privacy" style="margin-bottom:10px">필수 동의 항목입니다</div>
+<label class="consent-row">
+  <input type="checkbox" id="marketing">
+  마케팅 정보 수신에 동의합니다 <span class="opt-tag">선택</span>
+</label>
+<p style="font-size:14px;color:#9ca3af;margin:5px 0 22px 32px">교육 프로그램 안내, 세미나 소식 등을 이메일로 받으실 수 있습니다</p>
+
+
+      <button class="submit-btn" id="submit-btn" onclick="submitForm()">
+        AI 교육 문의 제출하기 →
+      </button>
+    </div>
+    <div class="success-msg" id="success-msg">
+      <div class="success-icon">✅</div>
+      <h3>문의가 접수되었습니다!</h3>
+      <p><strong>박세연 코치</strong>가 <strong>영업일 기준 1일 이내</strong>에 연락드리겠습니다.<br><br>
+      입력하신 이메일로 접수 확인 메일이 발송되었습니다.<br><br>
+      긴급 문의는 <span class="copy-btn" onclick="copyText('010-3226-2008')" title="클릭하여 복사">010-3226-2008</span>으로 연락 주세요.</p>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="s-card">
+      <div class="s-card-label">TENX AI Education</div>
+      <h3>텐엑스 AI 교육 성과</h3>
+      <div class="stat-bar">
+        <div class="sbar-item"><span class="sbar-num">5,000+</span><div class="sbar-lbl">누적 수강생</div></div>
+        <div class="sbar-item"><span class="sbar-num">22+</span><div class="sbar-lbl">년 경력</div></div>
+        <div class="sbar-item"><span class="sbar-num">ICF PCC</span><div class="sbar-lbl">국제 인증</div></div>
+        <div class="sbar-item"><span class="sbar-num">B2B</span><div class="sbar-lbl">기업 특화</div></div>
+      </div>
+    </div>
+
+    <div class="s-card">
+      <div class="s-card-label">Curriculum</div>
+      <h3>교육 과정 커리큘럼</h3>
+      <div class="module-card">
+        <div class="module-badge"><span class="m-tag">M1</span><span class="m-title">AI 기초과정</span></div>
+        <ul class="m-list">
+          <li>AI 개념 · 원리 이해</li>
+          <li>ChatGPT · Claude · Gemini 체험</li>
+          <li>비전공자 맞춤 입문 교육</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-badge"><span class="m-tag">M2</span><span class="m-title">AI활용 업무 생산성 향상</span></div>
+        <ul class="m-list">
+          <li>문서 작성 · 보고서 자동화</li>
+          <li>회의록 · 이메일 AI 처리</li>
+          <li>NotebookLM 지식관리 자동화</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-badge"><span class="m-tag">M3</span><span class="m-title">부서별 맞춤 AI</span></div>
+        <ul class="m-list">
+          <li>HR · 마케팅 · 기획 직무 특화</li>
+          <li>직무별 AI 워크플로우 설계</li>
+          <li>기업 맞춤 커스텀 커리큘럼</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="s-card">
+      <div class="s-card-label">Features</div>
+      <h3>교육 특징</h3>
+      <div class="tag-grid">
+        <span class="tag-btn">현장 즉시 적용</span>
+        <span class="tag-btn">직무별 맞춤</span>
+        <span class="tag-btn">라이브 실습</span>
+        <span class="tag-btn">코칭 기반</span>
+        <span class="tag-btn">성과 중심</span>
+        <span class="tag-btn">소규모 가능</span>
+      </div>
+    </div>
+
+    
+<div class="process-contact-row">
+  <div class="pc-card">
+    <div class="pc-label">Process</div>
+    <h3>문의 절차</h3>
+    <div class="process">
+      <div class="p-step"><div class="p-num">1</div><div class="p-info"><div class="p-title">문의 접수</div><div class="p-desc">폼 제출 즉시 확인 메일</div></div></div>
+      <div class="p-step"><div class="p-num">2</div><div class="p-info"><div class="p-title">담당자 연락</div><div class="p-desc">1영업일 이내</div></div></div>
+      <div class="p-step"><div class="p-num">3</div><div class="p-info"><div class="p-title">니즈 파악</div><div class="p-desc">조직 현황 확인</div></div></div>
+      <div class="p-step"><div class="p-num">4</div><div class="p-info"><div class="p-title">제안서 발송</div><div class="p-desc">커리큘럼·견적 안내</div></div></div>
+      <div class="p-step"><div class="p-num">5</div><div class="p-info"><div class="p-title">교육 확정</div><div class="p-desc">계약·진행</div></div></div>
+    </div>
+  </div>
+  <div class="pc-card">
+    <div class="pc-label">Contact</div>
+    <h3>직접 문의</h3>
+    <div class="contact-row"><div class="c-icon">👤</div><div><div class="c-lbl">담당자</div><div class="c-val">박세연 코치<br><span style="font-size:12px;color:rgba(255,255,255,0.4)">ICF PCC</span></div></div></div>
+    <div class="contact-row"><div class="c-icon">📱</div><div><div class="c-lbl">전화</div><div class="c-val"><span class="copy-btn" onclick="copyText('010-3226-2008')" title="클릭하여 복사">010-3226-2008</span></div></div></div>
+    <div class="contact-row"><div class="c-icon">✉️</div><div><div class="c-lbl">이메일</div><div class="c-val"><span class="copy-btn" onclick="copyText('tenxcnc@gmail.com')" title="클릭하여 복사">tenxcnc@gmail.com</span></div></div></div>
+    <div class="resp-pill">영업일 기준<br>1일 이내 연락</div>
+  </div>
+</div>
+
+  </aside>
+</div>
+
+
+<footer>
+  <strong>텐엑스 코칭컨설팅 (TENX Coaching &amp; Consulting)</strong><br>
+  담당: 박세연 코치 (Professional Certified Coach, ICF PCC) &nbsp;·&nbsp;
+  <span class="copy-btn" onclick="copyText('010-3226-2008')" title="클릭하여 복사">010-3226-2008</span> &nbsp;·&nbsp;
+  <span class="copy-btn" onclick="copyText('tenxcnc@gmail.com')" title="클릭하여 복사">tenxcnc@gmail.com</span><br>
+  © 2026 TENX Coaching &amp; Consulting. All rights reserved.
+</footer>
+
+
+<script>
+function toggleCourse(el){
+  el.classList.toggle('selected');
+}
+
+function validate(){
+  let ok=true;
+  [['f-company','company'],['f-name','name'],['f-phone','phone'],['f-email','email'],['f-headcount','headcount']].forEach(([wid,eid])=>{
+    const w=document.getElementById(wid),inp=document.getElementById(eid),v=inp.value.trim();
+    const invalid=(!v)||(eid==='email'&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v));
+    w.classList.toggle('error',invalid);
+    if(invalid)ok=false;
+    inp.addEventListener('input',()=>w.classList.remove('error'),{once:true});
+  });
+  const sel=[...document.querySelectorAll('.course-item.selected')];
+  const ce=document.getElementById('err-course');
+  if(ce){if(!sel.length){ce.style.display='block';ok=false;}else ce.style.display='none';}
+  const priv=document.getElementById('privacy'),pe=document.getElementById('err-privacy');
+  if(!priv.checked){pe.style.display='block';ok=false;}else pe.style.display='none';
+  return ok;
+}
+
+async function submitForm(){
+  if(!validate())return;
+  const btn=document.getElementById('submit-btn');
+  btn.disabled=true;
+  btn.innerHTML='<span class="spinner"></span>제출 중...';
+  const courses=[...document.querySelectorAll('.course-item.selected')].map(el=>el.querySelector('input').value).join(', ');
+  const data={
+    type:'AI 교육',
+    company:document.getElementById('company').value.trim(),
+    name:document.getElementById('name').value.trim(),
+    phone:document.getElementById('phone').value.trim(),
+    email:document.getElementById('email').value.trim(),
+    position:document.getElementById('position').value.trim(),
+    headcount:document.getElementById('headcount').value,
+    courses:courses,
+    schedule:document.getElementById('schedule').value.trim(),
+    method:document.getElementById('method').value,
+    message:document.getElementById('message').value.trim(),
+    marketing:document.getElementById('marketing').checked?'동의':'미동의',
+    timestamp:new Date().toLocaleString('ko-KR'),
+  };
+  try{
+    await fetch('https://script.google.com/macros/s/AKfycbxA_dm77ZgPB2rtZ927a9-bOTX6EAyE_1eGX5wtzBqLB0YdhTe8x-upqI_h3uhveXia/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+    document.getElementById('form-wrap').style.display='none';
+    document.getElementById('success-msg').classList.add('show');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }catch(e){
+    btn.disabled=false;
+    btn.innerHTML='AI 교육 문의 제출하기 →';
+    alert('제출 중 오류가 발생했습니다.\n☎ 010-3226-2008');
+  }
+}
+
+function showToast(msg){
+  var t=document.getElementById('copy-toast');
+  if(!t){t=document.createElement('div');t.id='copy-toast';document.body.appendChild(t);}
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(window._tt);window._tt=setTimeout(function(){t.classList.remove('show');},1800);
+}
+function copyText(txt){
+  if(navigator.clipboard&&window.isSecureContext){
+    navigator.clipboard.writeText(txt).then(function(){showToast('✅  '+txt+'  복사됨!');}).catch(function(){fbCopy(txt);});
+  }else{fbCopy(txt);}
+}
+function fbCopy(txt){
+  var ta=document.createElement('textarea');
+  ta.value=txt;ta.style.cssText='position:fixed;left:-9999px;opacity:0';
+  document.body.appendChild(ta);ta.focus();ta.select();
+  try{document.execCommand('copy');showToast('✅  '+txt+'  복사됨!');}
+  catch(e){showToast('직접 선택해서 복사해주세요');}
+  document.body.removeChild(ta);
+}
+</script>
+</body>
+</html>

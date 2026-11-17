@@ -214,6 +214,22 @@ input:focus,textarea:focus{outline:0;border-color:var(--neon);box-shadow:0 0 0 3
 .msg{font-size:15px;color:var(--neon)}
 .msg.err{color:var(--fg)}
 
+/* 브로셔 */
+.bro{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.bro a{display:block;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--surface);text-decoration:none;transition:border-color .18s ease}
+.bro a:hover{border-color:var(--neon)}
+.bro img{display:block;width:100%;height:auto}
+.bro span{display:flex;justify-content:space-between;gap:12px;padding:14px 18px;font-size:14.5px;color:var(--fg-2)}
+.bro span b{color:var(--fg);font-weight:700}
+/* 문의 갈래 */
+.routes{position:relative;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-bottom:64px}
+.routes a{display:flex;flex-direction:column;gap:10px;padding:26px 24px;background:var(--bg);border:1px solid var(--line-2);border-radius:var(--r);text-decoration:none;transition:border-color .18s ease,transform .18s ease}
+.routes a:hover{border-color:var(--neon);transform:translateY(-3px)}
+.routes small{font-size:12.5px;font-weight:700;letter-spacing:.1em;color:var(--neon)}
+.routes h3{font-size:24px}
+.routes p{font-size:15px;color:var(--fg-2)}
+.routes em{font-style:normal;font-weight:700;font-size:15px;color:var(--neon);margin-top:6px}
+
 footer{border-top:1px solid var(--line);color:var(--fg-3);font-size:14px}
 .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px 40px;padding-block:34px 44px}
 .foot img{display:block;height:76px;width:auto}
@@ -228,7 +244,8 @@ footer{border-top:1px solid var(--line);color:var(--fg-3);font-size:14px}
   .hero-in{grid-template-columns:1fr;padding-block:52px 48px;gap:40px}
   .hero .shot{height:300px}
   .card.feat{grid-column:auto}
-  .works-note{grid-template-columns:1fr}
+  .works-note,.bro,.routes{grid-template-columns:1fr}
+  .routes{margin-bottom:44px}
   .works-note div+div{padding-left:0;border-left:0;border-top:1px solid var(--line)}
   .facts dl{grid-template-columns:1fr 1fr}
   .facts div{padding:28px 16px 26px 0}
@@ -276,6 +293,7 @@ footer{border-top:1px solid var(--line);color:var(--fg-3);font-size:14px}
       <a href="#record">수행 실적</a>
       <a href="#works">제작 사례</a>
       <a href="#qual">자격</a>
+      <a href="#brochure">브로셔</a>
       <a href="#team">코치진</a>
     </nav>
     <a class="btn btn-neon" href="#contact">문의하기 <span class="arr" aria-hidden="true">→</span></a>
@@ -511,16 +529,37 @@ footer{border-top:1px solid var(--line);color:var(--fg-3);font-size:14px}
         <li><p class="role">리더십 · 의사소통</p><h3>정선미 코치</h3><p>롯데 GL 승진자 과정 전문 퍼실리테이터.</p></li>
         <li><p class="role">AI 콘텐츠 · 영상</p><h3>박민욱</h3><p>AI 이미지와 영상 제작, 업무 자동화 전문.</p></li>
         <li><p class="role">콘텐츠 · 라이브커머스</p><h3>정진희</h3><p>경영컨설팅 석사. 숏폼과 크리에이터 양성.</p></li>
+        <li><p class="role">AI 비즈니스 · 세일즈</p><h3>전의진</h3><p>㈜말랑탱크 대표. 저서 9권. AI 업무 자동화.</p></li>
+        <li><p class="role">기업교육 · 리더십</p><h3>김이화</h3><p>KAC 코치. 현대차그룹 핵심가치 세미나 FT.</p></li>
       </ul>
     </div>
   </section>
 
+  <section class="sec sec-line" id="brochure">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="eyebrow">Brochure</p><h2>한 장으로 보는<br>텐엑스 교육</h2></div>
+        <p>리더십 · 코칭 과정과 AI 기초 · 직무 맞춤 교육을 3단 브로셔로 정리했습니다. 눌러서 크게 보거나 내려받아 사내에 공유해 보세요.</p>
+      </div>
+      <div class="bro">
+        <a href="img/brochure-inside.jpg" target="_blank" rel="noopener"><img src="img/brochure-inside.jpg" alt="텐엑스 브로셔 안쪽 면. 리더십과 코칭, AI 기초와 AI 직무 맞춤 교육 과정 소개" width="905" height="644" loading="lazy"><span><b>안쪽 면</b>교육 과정 소개</span></a>
+        <a href="img/brochure-outside.jpg" target="_blank" rel="noopener"><img src="img/brochure-outside.jpg" alt="텐엑스 브로셔 바깥 면. 표지와 교육 문의 QR, 연락처" width="905" height="644" loading="lazy"><span><b>바깥 면</b>표지 · 문의 QR · 연락처</span></a>
+      </div>
+    </div>
+  </section>
+
   <section class="sec cta" id="contact">
+    <div class="wrap">
+      <div class="routes">
+        <a href="tenx-ai/index.html"><small>AI EDUCATION</small><h3>AI 교육 문의</h3><p>AI 기초, 업무 생산성 향상, 부서별 맞춤 AI. 커리큘럼을 보고 인원과 일정을 적어 주시면 맞춤 제안서를 보내 드립니다.</p><em>커리큘럼 보고 문의하기 →</em></a>
+        <a href="tenx-biz/index.html"><small>CORPORATE EDUCATION</small><h3>기업교육 문의</h3><p>리더십, 팀장 코칭, 소통 · 협업, 조직문화, 성과관리 · 피드백. 교육 대상과 조직의 고민을 알려 주세요.</p><em>교육 분야 보고 문의하기 →</em></a>
+      </div>
+    </div>
     <div class="wrap contact">
       <div>
         <p class="eyebrow">Contact</p>
         <h2>어떤 변화가<br><span class="neon">필요하신가요</span></h2>
-        <p class="how">대상과 인원, 원하는 시기만 알려주셔도 됩니다. 1영업일 안에 담당 코치가 직접 연락드립니다.</p>
+        <p class="how">코칭, 포트폴리오 컨설팅, 콘텐츠 · 홍보물 제작처럼 교육 외 문의는 여기로 남겨 주세요. 대상과 원하는 시기만 알려주셔도 됩니다. 1영업일 안에 담당 코치가 직접 연락드립니다.</p>
         <dl class="direct">
           <div><div><dt>전화</dt><dd id="c-tel">010-3226-2008</dd></div><button class="copy" type="button" data-copy="c-tel">복사</button></div>
           <div><div><dt>이메일</dt><dd id="c-mail">tenxcnc@gmail.com</dd></div><button class="copy" type="button" data-copy="c-mail">복사</button></div>
