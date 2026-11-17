@@ -32,14 +32,14 @@ export function fontCss(fontBase) {
 export function slideCss(p) {
   return `
   .slide{position:relative;width:${SLIDE_W}px;height:${SLIDE_H}px;overflow:hidden;font-family:Jua,sans-serif;color:${p.ink};word-break:keep-all;
-    background:linear-gradient(180deg,${p.bg} 0%,#FFFFFF 100%)}
+    background:linear-gradient(180deg,${p.bg} 0%,#FFFBE3 100%)}
   .slide *{box-sizing:border-box}
   .s-title{position:absolute;left:60px;right:60px;top:70px;text-align:center;font-size:68px;line-height:1.15;letter-spacing:-1px}
   .s-series{position:absolute;left:50%;top:64px;transform:translateX(-50%);background:${p.accent};color:#fff;font-size:34px;
     padding:10px 30px;border-radius:999px;white-space:nowrap}
   .s-cover-title{position:absolute;left:50px;right:50px;top:132px;text-align:center;font-size:104px;line-height:1.12;letter-spacing:-2px}
   .s-cover-sub{position:absolute;left:60px;right:60px;top:392px;text-align:center;font-size:42px;opacity:.75}
-  .s-art{position:absolute;background:#fff;border-radius:48px;overflow:hidden;box-shadow:0 10px 0 ${p.bg2}}
+  .s-art{position:absolute;background:#fff;border-radius:48px;overflow:hidden;box-shadow:0 12px 0 ${p.bg2};border:5px solid ${p.bg2}}
   .s-art.bare{background:transparent;box-shadow:none}
   .s-art svg,.s-art img{width:100%;height:100%;display:block;object-fit:cover}
   .L{position:absolute}
@@ -51,7 +51,7 @@ export function slideCss(p) {
   .bubble .tail.bl,.bubble .tail.tl{left:70px}.bubble .tail.br,.bubble .tail.tr{right:70px}
   .bubble.think .tail{display:none}
   .who{display:block;font-size:30px;opacity:.6;margin-bottom:4px}
-  .caption{background:${p.accent};color:#fff;border-radius:999px;padding:18px 34px;font-size:44px;text-align:center;line-height:1.25}
+  .caption{background:${p.accent};color:#fff;box-shadow:0 6px 0 rgba(0,0,0,.10);border-radius:999px;padding:18px 34px;font-size:44px;text-align:center;line-height:1.25}
   .caption.sub{background:${p.sub}}
   .card{background:#fff;border-radius:36px;padding:32px 40px;font-size:48px;line-height:1.45;box-shadow:0 8px 0 ${p.bg2};border:4px solid ${p.bg2}}
   .card .k{color:${p.accent}}
@@ -60,12 +60,12 @@ export function slideCss(p) {
   .compare .row{border-radius:30px;padding:24px 30px 24px 100px;font-size:45px;line-height:1.35;position:relative}
   .compare .row b{position:absolute;left:28px;top:50%;transform:translateY(-50%);width:54px;height:54px;border-radius:50%;
     color:#fff;font-weight:400;font-size:36px;display:flex;align-items:center;justify-content:center}
-  .compare .bad{background:#F1ECE7;color:#8B7B6E}.compare .bad b{background:#B9A99B}
-  .compare .good{background:#fff;border:5px solid ${p.accent}}.compare .good b{background:${p.accent}}
+  .compare .bad{background:#F3F1EC;color:#8B8178}.compare .bad b{background:#C4BBB2}
+  .compare .good{background:#FFF8EE;border:5px solid ${p.accent}}.compare .good b{background:${p.accent}}
   .note{font-family:Gowun,sans-serif;font-size:28px;opacity:.7;text-align:center}
   .mail{font-family:Gowun,sans-serif;font-size:40px;line-height:1.55;color:#333}
   .mail .from{font-size:30px;color:#7B8794;margin-bottom:10px}
-  .cta{background:${p.ink};color:#fff;border-radius:999px;padding:18px 30px;font-size:40px;text-align:center}
+  .cta{background:${p.cta || p.ink};color:#fff;box-shadow:0 6px 0 rgba(0,0,0,.12);border-radius:999px;padding:18px 30px;font-size:40px;text-align:center}
   `;
 }
 

@@ -133,7 +133,7 @@ ${fontCss('assets/fonts')}
 * { margin:0; padding:0; box-sizing:border-box; }
 html, body { width:${W}px; height:${H}px; overflow:hidden; background:${p.bg2}; }
 #root { position:relative; width:${W}px; height:${H}px; overflow:hidden; font-family:Jua,sans-serif; color:${p.ink};
-  background: radial-gradient(circle at 50% 0%, #FFFFFF 0%, ${p.bg} 45%, ${p.bg2} 100%); }
+  background: radial-gradient(circle at 50% 0%, #FFFFFF 0%, ${p.bg} 40%, ${p.bg2} 100%); }
 .full { position:absolute; inset:0; }
 #SERIES { position:absolute; left:50%; top:150px; transform:translateX(-50%); }
 #SERIES span { display:inline-block; background:${p.accent}; color:#fff; font-size:38px; padding:10px 34px; border-radius:999px; white-space:nowrap; }
@@ -141,7 +141,7 @@ html, body { width:${W}px; height:${H}px; overflow:hidden; background:${p.bg2}; 
 #BARWRAP { position:absolute; left:${PX}px; width:${Math.round(SLIDE_W * SCALE)}px; top:${PY - 26}px; height:10px; border-radius:6px; background:rgba(0,0,0,.08); overflow:hidden; }
 #BAR { width:100%; height:100%; background:${p.accent}; transform-origin:0 50%; }
 .pframe { position:absolute; left:${PX}px; top:${PY}px; width:${SLIDE_W}px; height:${SLIDE_H}px; transform:scale(${SCALE}); transform-origin:0 0;
-  border-radius:56px; overflow:hidden; box-shadow:0 14px 0 rgba(0,0,0,.06); }
+  border-radius:56px; overflow:hidden; box-shadow:0 14px 0 rgba(0,0,0,.08); }
 .pwrap, .shk, .cam { position:absolute; inset:0; }
 ${slideCss(p)}
 .slide { border-radius:56px; }
@@ -150,7 +150,7 @@ ${slideCss(p)}
   display:flex; flex-direction:column; align-items:center; justify-content:center; gap:34px; text-align:center; }
 #ENDHAM { width:440px; height:440px; }
 #ENDNEXT { font-size:52px; line-height:1.25; padding:0 50px; }
-#ENDCTA { background:${p.ink}; color:#fff; font-size:44px; padding:20px 40px; border-radius:999px; }
+#ENDCTA { background:${p.cta || p.ink}; color:#fff; font-size:44px; padding:20px 40px; border-radius:999px; }
 </style>
 </head>
 <body>

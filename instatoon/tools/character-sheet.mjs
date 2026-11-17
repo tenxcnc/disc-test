@@ -16,7 +16,7 @@ const cell = (svg, label) =>
 const sheets = {
   'hamzzi-sheet': {
     title: '햄찌 · 취준 1년 차 → 신입사원',
-    note: '살구색 몸 · 크림색 배 · 볼주머니 · 머리 위 삐친 털 · 신입 땐 사원증',
+    note: '살구색 몸 · 볼주머니 · 스카이블루 오버핏 후드 · 탠저린 스냅백 · 흰 스니커즈 · 신입 땐 사원증',
     cells: [
       cell(hamzzi({ expr: 'normal' }), '기본'),
       cell(hamzzi({ expr: 'happy' }), '기쁨'),
@@ -30,7 +30,7 @@ const sheets = {
   },
   'cast-sheet': {
     title: '햄찌 세계관 등장인물',
-    note: '햄찌(주인공) · 부엉 대리(현실 조언·관계통역 코너) · 다람(감정 폭발 동기)',
+    note: '햄찌(힙한 캐주얼) · 부엉 대리(댄디 정장·뿔테) · 다람(캐주얼 정장·웨이브 꼬리)',
     cells: [
       cell(hamzzi({ expr: 'normal', badge: true }), '햄찌'),
       cell(owl({ expr: 'normal' }), '부엉 대리'),
