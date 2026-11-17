@@ -271,6 +271,67 @@ footer{border-top:1px solid var(--line);color:var(--fg-3);font-size:14px}
   .filter button{flex:none}
   .rot{min-width:0}
 }
+
+/* 모바일 조정 : 긴 목록 접기, 누르는 영역, 하단 문의 바 */
+.more-btn{display:none}
+.mbar{display:none}
+.nav .nav-cta{display:none}
+@media (max-width:600px){
+  .sec{padding-block:60px}
+  .sec-head h2{font-size:28px}
+  .hero-in{padding-block:36px 40px;gap:30px}
+  .hero h1{margin-block:14px 18px}
+  .hero .lead{font-size:16.5px}
+  .hero-cta{margin-top:24px}
+  .hero-cta .btn{flex:1 1 100%;justify-content:center}
+  .chips{display:none}
+  .hero .shot{height:230px}
+  .menu-btn{min-height:44px;padding-inline:18px}
+  .nav .nav-cta{display:block;color:var(--neon);font-weight:700;border-bottom:0}
+  .copy{min-height:44px;padding-inline:18px}
+  .card .more,.count .more{display:inline-block;padding-block:10px}
+  .foot a{display:inline-block;padding-block:12px}
+  .facts div{padding:22px 12px 20px 0}
+  .facts div+div{padding-left:16px}
+  .card{padding:20px 18px 18px;gap:10px}
+  .card h3{font-size:18.5px}
+  .card.feat h3{font-size:22px}
+  [data-more]:not(.open)>.over{display:none}
+  .more-btn{display:flex;width:100%;justify-content:center;align-items:center;gap:8px;min-height:50px;margin-top:14px;background:transparent;color:var(--fg);border:1px solid var(--line-2);border-radius:999px;font:700 15px/1 var(--font);cursor:pointer}
+  .more-btn[hidden]{display:none}
+  .more-btn span{color:var(--neon)}
+  .scenes{grid-template-columns:1fr 1fr;gap:10px}
+  .scenes .shot{height:170px}
+  .scenes .shot figcaption{padding:9px 12px 10px;font-size:0}
+  .scenes .shot figcaption b{font-size:13.5px}
+  .steps li{padding:20px 18px 22px}
+  .steps h3{font-size:20px;margin-block:10px 6px}
+  .rec-list li{grid-template-columns:1fr;gap:2px;padding:15px 0}
+  .rec-list span{grid-column:auto}
+  .rec-list b{font-size:17px}
+  .works{grid-template-columns:1fr 1fr;gap:10px}
+  .works li{padding:16px 14px 18px;gap:6px}
+  .works li::before{font-size:22px}
+  .works small{margin-top:4px;font-size:12px}
+  .works h3{font-size:16px}
+  .works p{font-size:13.5px}
+  .lead-sec img{width:180px;max-width:180px;height:240px;aspect-ratio:auto}
+  .lead-sec blockquote{font-size:20px;margin-block:14px 22px}
+  .quals li,.team li{padding:20px 18px}
+  .routes a{padding:22px 20px}
+  .routes h3{font-size:21px}
+  .contact h2{font-size:30px}
+  .direct dd{font-size:18px}
+  .kinds span{padding:12px 16px}
+  .send .btn{width:100%;justify-content:center}
+  body{padding-bottom:calc(64px + env(safe-area-inset-bottom,0px))}
+  .mbar{display:grid;grid-template-columns:1fr 2fr;gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:19;padding:8px max(12px,env(safe-area-inset-right,0px)) calc(8px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));background:var(--bg);border-top:1px solid var(--line);transition:transform .2s ease}
+  .mbar.off{transform:translateY(110%)}
+  .mbar a{display:flex;align-items:center;justify-content:center;min-height:48px;border-radius:999px;font:700 15px/1 var(--font);text-decoration:none}
+  .mbar .tel{border:1px solid var(--line-2);color:var(--fg)}
+  .mbar .go{background:var(--neon);color:var(--neon-ink)}
+}
+@media (max-width:360px){.works{grid-template-columns:1fr}.facts dt{font-size:26px}}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .flow ul{animation:none;flex-wrap:wrap;width:auto;gap:10px 28px;padding-inline:20px}
@@ -295,6 +356,7 @@ footer{border-top:1px solid var(--line);color:var(--fg-3);font-size:14px}
       <a href="#qual">자격</a>
       <a href="#brochure">브로셔</a>
       <a href="#team">코치진</a>
+      <a class="nav-cta" href="#contact">문의하기 →</a>
     </nav>
     <a class="btn btn-neon" href="#contact">문의하기 <span class="arr" aria-hidden="true">→</span></a>
     <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="nav">메뉴</button>
@@ -352,7 +414,7 @@ footer{border-top:1px solid var(--line);color:var(--fg-3);font-size:14px}
         <button type="button" data-f="public" aria-pressed="false">대학 · 공공<span data-n="public"></span></button>
       </div>
 
-      <ul class="cards" id="cards">
+      <ul class="cards" id="cards" data-more="6">
         <li class="card" data-c="edu"><span class="cat">기업 교육</span><h3>AI 기초 · 리터러시 교육</h3><p>ChatGPT, Claude, Gemini 실습으로 비전공자도 하루 만에 AI를 업무에 연결합니다. 인공지능기본법 대응 내용을 포함합니다.</p><p class="ref"><b>수행</b> 한국산업인력공단, KG에듀원</p></li>
         <li class="card" data-c="edu"><span class="cat">기업 교육</span><h3>AI 업무 생산성 워크숍</h3><p>보고서, 회의록, 이메일, 데이터 분석을 AI로 처리하는 실습형 과정입니다. M365 Copilot 과정도 운영합니다.</p><p class="ref"><b>수행</b> 포레시아코리아 팀장 · 책임매니저 · G1·G2 매니저</p></li>
         <li class="card" data-c="edu"><span class="cat">기업 교육</span><h3>부서 · 직무별 맞춤 AI 교육</h3><p>마케팅, 영업, 인사, 재무, 품질, 생산처럼 직무마다 실제 업무 사례로 심화 실습을 구성합니다.</p><p class="ref"><b>수행</b> KG에듀원 직무별 10회, 충남대학교 교수 6세션</p></li>
@@ -428,7 +490,7 @@ footer{border-top:1px solid var(--line);color:var(--fg-3);font-size:14px}
         <div><p class="eyebrow">Track Record</p><h2>대기업, 공공기관, 대학<br>현장에서 검증했습니다</h2></div>
         <p>2023년에는 디지털 인재 양성에 기여한 공로로 서울특별시장 표창을 받았고, 2026년에는 넥스트클라우드 × 경희대 의료특화 AI 아이디어톤에서 대상을 받았습니다.</p>
       </div>
-      <ul class="rec-list">
+      <ul class="rec-list" data-more="6">
         <li><time>2026</time><b>롯데그룹 인재개발원</b><span>GL 공통과정 (의사소통 · 협업 · 혁신), 사내강사 양성</span></li>
         <li><time>2026</time><b>포레시아코리아</b><span>팀장 · 책임매니저 · G1·G2 매니저 AI 실무 활용 워크숍 (6 · 8 · 10 · 11월)</span></li>
         <li><time>2026</time><b>한세대학교 앵커사업단</b><span>기업 수요맞춤 재직자 AI 활용 실무과정 위탁 운영</span></li>
@@ -478,7 +540,7 @@ footer{border-top:1px solid var(--line);color:var(--fg-3);font-size:14px}
         <p class="eyebrow">Founder</p>
         <blockquote>도구와 시장은 빠르게 바뀌지만, 한 사람의 이야기를 귀 기울여 듣는 일의 본질은 바뀌지 않습니다. 그 위에 <span class="neon">지금 시대의 도구</span>를 얹는 것이 텐엑스가 하는 일입니다.</blockquote>
         <div class="sign"><b>박세연</b><span>텐엑스 코칭컨설팅 대표 · 대표 코치</span></div>
-        <ul class="creds">
+        <ul class="creds" data-more="6">
           <li>ICF PCC · KPC · EMCC Senior Practitioner</li>
           <li>ICF 멘토 코치(MCS) · 코칭 수퍼바이저(CSS) 심사 중</li>
           <li>경희대학교 경영대학원 코칭사이언스 석사</li>
@@ -521,7 +583,7 @@ footer{border-top:1px solid var(--line);color:var(--fg-3);font-size:14px}
         <div><p class="eyebrow">Coaches &amp; Instructors</p><h2>주제마다 그 분야에서<br>일해 온 사람이 맡습니다</h2></div>
         <p>국제 인증 코치와 분야별 실무 전문가가 함께합니다. 과정의 주제와 대상에 맞춰 강사진을 구성합니다.</p>
       </div>
-      <ul class="team">
+      <ul class="team" data-more="4">
         <li><p class="role">AI 교육 · HRD</p><h3>곽자향</h3><p>ICF PCC · EMCC Senior Practitioner. HRD 경력 19년. 삼성중공업, 포레시아 AI 실무 교육.</p></li>
         <li><p class="role">전직지원 · 커리어 컨설팅</p><h3>박미선 이사</h3><p>한양대 경영전문대학원 전략프로젝트경영 석사. 제니엘 전직지원팀장, 서초여성가족플라자 경력개발팀장 역임.</p></li>
         <li><p class="role">비즈니스 코칭 · 리더십</p><h3>김영헌 교수</h3><p>한국코치협회 명예회장. 경희대 코칭사이언스 주임교수.</p></li>
@@ -590,6 +652,7 @@ footer{border-top:1px solid var(--line);color:var(--fg-3);font-size:14px}
     </div>
   </section>
 </main>
+<div class="mbar" id="mbar"><a class="tel" href="tel:010-3226-2008">전화</a><a class="go" href="#contact">교육 · 프로젝트 문의하기</a></div>
 
 <footer>
   <div class="wrap foot">
@@ -619,12 +682,34 @@ footer{border-top:1px solid var(--line);color:var(--fg-3);font-size:14px}
     cards.forEach(function(c){var on=f==='all'||c.dataset.c===f;c.hidden=!on;if(on)n++});
     count.textContent=(f==='all'?'':names[f]+' ')+n+'개 항목을 보고 있습니다.';
     if(kindId[f])document.getElementById(kindId[f]).checked=true;
+    if(window.__more)window.__more();
   }
   document.querySelectorAll('[data-n]').forEach(function(el){var k=el.dataset.n;el.textContent=k==='all'?cards.length:cards.filter(function(c){return c.dataset.c===k}).length});
   document.querySelectorAll('[data-total]').forEach(function(el){el.textContent=cards.length});
   filt('all');
   fb.forEach(function(b){b.addEventListener('click',function(){filt(b.dataset.f)})});
   document.querySelectorAll('[data-go]').forEach(function(a){a.addEventListener('click',function(){filt(a.dataset.go)})});
+
+
+  // 모바일 : 긴 목록 접기 (스타일은 600px 이하에서만 적용)
+  var mores=[];
+  document.querySelectorAll('[data-more]').forEach(function(list){
+    var n=+list.dataset.more,btn=document.createElement('button');
+    btn.type='button';btn.className='more-btn';list.insertAdjacentElement('afterend',btn);
+    function mark(){
+      var i=0,over=0;
+      [].forEach.call(list.children,function(li){if(li.hidden){li.classList.remove('over');return}var o=i>=n;li.classList.toggle('over',o);if(o)over++;i++});
+      var open=list.classList.contains('open');
+      btn.hidden=over===0;btn.setAttribute('aria-expanded',open);
+      btn.innerHTML=open?'접기':'더 보기 <span>+'+over+'</span>';
+    }
+    btn.addEventListener('click',function(){var was=list.classList.toggle('open');mark();if(!was)list.scrollIntoView({block:'start'})});
+    mores.push({list:list,mark:mark});mark();
+  });
+  // 모바일 하단 문의 바 : 문의 영역에서는 숨김
+  var mbar=document.getElementById('mbar'),ct=document.getElementById('contact');
+  if(mbar&&ct&&'IntersectionObserver' in window){new IntersectionObserver(function(es){mbar.classList.toggle('off',es[0].isIntersecting)},{rootMargin:'0px 0px -20% 0px'}).observe(ct)}
+  window.__more=function(){mores.forEach(function(m){m.list.classList.remove('open');m.mark()})};
 
   // 모바일 메뉴
   var mb=document.getElementById('menuBtn'),nav=document.getElementById('nav');
