@@ -1,0 +1,19 @@
+{
+  "name": "hamzzi-instatoon",
+  "version": "1.0.0",
+  "private": true,
+  "description": "원소스 멀티유즈 인스타툰 파이프라인: episode.json → 캐러셀 PNG + 릴스툰 MP4 (HyperFrames)",
+  "type": "module",
+  "scripts": {
+    "sfx": "bash tools/make-sfx.sh",
+    "characters": "node tools/character-sheet.mjs",
+    "carousel": "node tools/render-carousel.mjs",
+    "reel": "node tools/build-reel.mjs",
+    "episode": "bash tools/make-episode.sh"
+  },
+  "dependencies": {
+    "gsap": "3.13.0",
+    "hyperframes": "0.9.59"
+  },
+  "license": "UNLICENSED"
+}
