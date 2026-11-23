@@ -3,4 +3,7 @@ node_modules/
 episodes/*/out/reel-project/
 .hyperframes/
 episodes/*/out/*.mp4
+jobposts/*/out/*.mp4
+jobposts/*/out/reel-project/
+jobposts/*/out/work-*
 episodes/*/out/work-*

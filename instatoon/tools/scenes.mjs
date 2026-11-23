@@ -64,6 +64,13 @@ export const SCENES = {
   'e2-hamzzi-corner': () => place(hamzzi({ expr: 'determined', armUp: true }), 580, 580, 0.95),
   'e2-hamzzi-doc': () => place(hamzzi({ expr: 'happy' }), 560, 560, 1.0) + paper(380, 640, -8, 0.95),
 
+  // 공고 해부 시리즈 공용 장면
+  'jp-cover': () => floor(900) + paper(120, 250, -8, 1.25) + paper(330, 200, 6, 1.25) + place(owl({ expr: 'normal', wingUp: true }), 480, 400, 1.25),
+  'jp-owl': () => place(owl({ expr: 'normal' }), 600, 600, 0.9),
+  'jp-owl-happy': () => place(owl({ expr: 'happy', wingUp: true }), 600, 600, 0.9),
+  'jp-hamzzi': () => place(hamzzi({ expr: 'determined', armUp: true }), 600, 610, 0.9),
+  'jp-hamzzi-shock': () => place(hamzzi({ expr: 'shocked' }), 600, 610, 0.9),
+
   // EP03 심리툰(관계통역): 거절 못 하는 사람의 속마음
   'e3-cover': () => floor(900) + place(daram({ expr: 'happy' }), 0, 380, 1.2) + place(hamzzi({ expr: 'shocked', sweatDrop: true }), 520, 380, 1.2),
   'e3-ask': () => floor(900) + place(daram({ expr: 'wink' }), 20, 500, 0.95) + place(hamzzi({ expr: 'happy', sweatDrop: true }), 560, 500, 0.95),
