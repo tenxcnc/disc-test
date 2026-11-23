@@ -1,0 +1,250 @@
+{
+  "id": "ep025",
+  "no": 25,
+  "series": "햄찌의 취준일기",
+  "type": "공감툰",
+  "hook": "신입이 차마\n못 물어본 질문들",
+  "slides": [
+    {
+      "layout": "cover",
+      "title": "신입이 묻기\n무서운 질문",
+      "sub": "신입 햄찌의 회사 적응기 #1",
+      "art": "scene:cover/H.shocked.badge/none",
+      "reel": {
+        "dur": 2.6,
+        "zoom": [
+          1,
+          1.06
+        ],
+        "focus": [
+          0.5,
+          0.6
+        ],
+        "sfx": [
+          [
+            "chime",
+            0.2
+          ]
+        ]
+      }
+    },
+    {
+      "title": "입사 3일 차",
+      "art": "scene:solo/H.tired.badge/desk",
+      "layers": [
+        {
+          "type": "bubble",
+          "variant": "think",
+          "text": "(이 파일을 어디에\n저장하라는 거지…)",
+          "x": 600,
+          "w": 400,
+          "sfx": false,
+          "y": 236
+        },
+        {
+          "type": "caption",
+          "text": "물어볼 타이밍을 30분째 놓쳤다",
+          "x": 120,
+          "y": 1196,
+          "w": 840,
+          "sfx": "drip"
+        }
+      ],
+      "reel": {
+        "dur": 4.1,
+        "zoom": [
+          1,
+          1.06
+        ],
+        "focus": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "title": "머릿속 시뮬레이션",
+      "art": "scene:solo/H.shocked.badge/none",
+      "layers": [
+        {
+          "type": "bubble",
+          "variant": "think",
+          "text": "(이런 것도 모르냐고\n하면 어쩌지)",
+          "x": 600,
+          "w": 400,
+          "sfx": false,
+          "y": 236
+        },
+        {
+          "type": "bubble",
+          "variant": "think",
+          "text": "(아까 설명해 주셨는데\n또 묻기 좀…)",
+          "x": 80,
+          "w": 400,
+          "sfx": false,
+          "y": 332
+        },
+        {
+          "type": "caption",
+          "text": "질문 하나에 걱정은 열 개",
+          "x": 120,
+          "y": 1196,
+          "w": 840,
+          "sfx": "drip"
+        }
+      ],
+      "reel": {
+        "dur": 4.85,
+        "zoom": [
+          1,
+          1.06
+        ],
+        "focus": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "title": "혼자 해보다가",
+      "art": "scene:solo/H.crying.badge/desk",
+      "layers": [
+        {
+          "type": "bubble",
+          "text": "…파일이\n사라졌다…?",
+          "x": 60,
+          "w": 500,
+          "tail": "bl",
+          "who": "햄찌",
+          "y": 236
+        },
+        {
+          "type": "caption",
+          "text": "결국 더 큰 질문이 생겼다",
+          "x": 120,
+          "y": 1196,
+          "w": 840,
+          "sfx": "drip"
+        }
+      ],
+      "reel": {
+        "dur": 4.1,
+        "zoom": [
+          1,
+          1.06
+        ],
+        "focus": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "title": "부엉 대리의 한마디",
+      "art": "scene:duo/O.happy.up/H.sad.badge",
+      "layers": [
+        {
+          "type": "bubble",
+          "text": "3분 고민해도 모르면\n바로 물어봐요.",
+          "x": 60,
+          "w": 500,
+          "tail": "bl",
+          "who": "부엉 대리",
+          "y": 236
+        },
+        {
+          "type": "bubble",
+          "text": "신입 질문은\n공짜예요.",
+          "x": 60,
+          "w": 500,
+          "tail": "bl",
+          "who": "부엉 대리",
+          "y": 468
+        },
+        {
+          "type": "caption",
+          "text": "그 말에 어깨가 내려갔다",
+          "x": 120,
+          "y": 1196,
+          "w": 840,
+          "sfx": "drip"
+        }
+      ],
+      "reel": {
+        "dur": 4.85,
+        "zoom": [
+          1,
+          1.06
+        ],
+        "focus": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "title": "질문은 메모와 함께",
+      "art": "scene:duo/O.happy/H.determined.badge.up",
+      "layers": [
+        {
+          "type": "bubble",
+          "text": "대리님, 질문 세 개\n모아 왔습니다!",
+          "x": 570,
+          "w": 450,
+          "tail": "br",
+          "who": "햄찌",
+          "y": 236
+        },
+        {
+          "type": "caption",
+          "variant": "sub",
+          "text": "다음 편 ▶ 인적성 대비 4주 플랜",
+          "x": 110,
+          "y": 1062,
+          "w": 860
+        },
+        {
+          "type": "cta",
+          "text": "좋아요와 저장 후, 신입 시절 썰 댓글로 나누기",
+          "x": 110,
+          "y": 1192,
+          "w": 860
+        }
+      ],
+      "artBox": {
+        "h": 820
+      },
+      "reel": {
+        "dur": 4.85,
+        "zoom": [
+          1,
+          1.06
+        ],
+        "focus": [
+          0.5,
+          0.5
+        ]
+      }
+    }
+  ],
+  "reelEnd": {
+    "text": "다음 편: 인적성 대비 4주 플랜",
+    "cta": "팔로우하고 햄찌랑 같이 버티기",
+    "dur": 2.6
+  },
+  "badge": true,
+  "caption": {
+    "carousel": "신입 때 질문 하나 하려고 30분을 고민한 적 있나요? 🐹\n3분 고민해도 모르면 바로 물어보래요. 신입 질문은 공짜니까요.\n\n💬 여러분의 이야기도 댓글로 들려주세요\n📌 저장해두고 지칠 때 다시 보기",
+    "reel": "신입이 차마 못 물어본 질문들 🐹 공감되면 저장!\n전체 버전은 프로필 게시물에서 👉"
+  },
+  "hashtags": [
+    "인스타툰",
+    "공감툰",
+    "취준생",
+    "취업준비",
+    "직장인공감",
+    "햄찌의취준일기",
+    "신입사원",
+    "회사생활"
+  ]
+}

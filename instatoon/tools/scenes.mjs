@@ -79,7 +79,43 @@ export const SCENES = {
   'e3-final': () => floor(900) + place(hamzzi({ expr: 'determined', armUp: true }), 30, 480, 1.0) + place(daram({ expr: 'happy' }), 560, 500, 0.95),
 };
 
+
+// ── 동적 장면: "duo/H.happy/D.sad", "solo/H.tired.badge/desk", "corner/O.happy.up", "cover/H.sad/phone" ──
+// 캐릭터 토큰: H(햄찌)·O(부엉)·D(다람) + .표정 + .up(팔 들기) .badge(사원증) .tears .sweat
+function actor(tok) {
+  const [who, expr = 'normal', ...flags] = tok.split('.');
+  const f = new Set(flags);
+  if (who === 'H') return hamzzi({ expr, armUp: f.has('up'), badge: f.has('badge'), tears: f.has('tears'), sweatDrop: f.has('sweat') });
+  if (who === 'O') return owl({ expr: expr === 'happy' ? 'happy' : 'normal', wingUp: f.has('up') });
+  if (who === 'D') return daram({ expr });
+  throw new Error(`알 수 없는 캐릭터: ${tok}`);
+}
+const isActor = (t) => /^[HOD]\./.test(t || '') || ['H', 'O', 'D'].includes(t);
+const mails = () => [envelope(150, 800, -18), envelope(240, 720, 10), envelope(850, 800, 16), envelope(870, 700, -8)].join('');
+function dynScene(name) {
+  const [kind, a, b] = name.split('/');
+  if (kind === 'corner') return place(actor(a), 600, 600, 0.9);
+  if (kind === 'duo') return floor(900) + place(actor(a), 20, 520, 0.95) + place(actor(b), 560, 520, 0.95);
+  if (kind === 'solo') {
+    if (b === 'desk') return desk(840) + place(actor(a), 80, 490, 0.92) + laptop(600, 614, 1.0);
+    if (b === 'phone') return floor(900) + place(actor(a), 100, 520, 0.98) + phone(700, 560, 1.15, { notif: true });
+    if (b === 'paper') return floor(900) + place(actor(a), 120, 520, 0.98) + paper(660, 590, 8, 1.1);
+    if (b === 'mail') return floor(900) + mails() + place(actor(a), 300, 520, 0.98);
+    return floor(900) + place(actor(a), 300, 520, 0.98);
+  }
+  if (kind === 'cover') {
+    if (isActor(b)) return floor(900) + place(actor(a), 10, 390, 1.2) + place(actor(b), 520, 400, 1.2);
+    const A = place(actor(a), 250, 340, 1.28);
+    if (b === 'phone') return floor(900) + place(actor(a), 120, 340, 1.28) + phone(720, 420, 1.2, { notif: true });
+    if (b === 'paper') return floor(900) + paper(110, 300, -8, 1.15) + place(actor(a), 380, 340, 1.28);
+    if (b === 'mail') return floor(900) + mails() + A;
+    return floor(900) + A;
+  }
+  return null;
+}
+
 export function sceneSvg(name) {
+  if (name.includes('/')) { const d = dynScene(name); if (d) return d; }
   const f = SCENES[name];
   if (!f) throw new Error(`알 수 없는 장면: ${name}`);
   return f();

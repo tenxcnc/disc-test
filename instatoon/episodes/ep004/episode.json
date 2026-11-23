@@ -1,0 +1,259 @@
+{
+  "id": "ep004",
+  "no": 4,
+  "series": "햄찌의 취준일기",
+  "type": "공감툰",
+  "hook": "발표 기다리는 3일\n취준생은 이래요",
+  "slides": [
+    {
+      "layout": "cover",
+      "title": "합격 연락\n기다리는 3일",
+      "sub": "발표 전 취준생의 72시간",
+      "art": "scene:cover/H.tired/phone",
+      "reel": {
+        "dur": 2.6,
+        "zoom": [
+          1,
+          1.06
+        ],
+        "focus": [
+          0.5,
+          0.6
+        ],
+        "sfx": [
+          [
+            "chime",
+            0.2
+          ]
+        ]
+      }
+    },
+    {
+      "title": "1일 차: 아직은 여유",
+      "art": "scene:solo/H.happy/phone",
+      "layers": [
+        {
+          "type": "bubble",
+          "text": "면접 잘 본 것 같아!\n기다려 보자~",
+          "x": 60,
+          "w": 500,
+          "tail": "bl",
+          "who": "햄찌",
+          "y": 236
+        },
+        {
+          "type": "caption",
+          "text": "이때까진 평화로웠다",
+          "x": 120,
+          "y": 1196,
+          "w": 840,
+          "sfx": "drip"
+        }
+      ],
+      "reel": {
+        "dur": 4.1,
+        "zoom": [
+          1,
+          1.06
+        ],
+        "focus": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "title": "2일 차: 새로고침 지옥",
+      "art": "scene:solo/H.shocked/desk",
+      "layers": [
+        {
+          "type": "bubble",
+          "text": "메일함 새로고침\n47번째…",
+          "x": 60,
+          "w": 500,
+          "tail": "bl",
+          "who": "햄찌",
+          "y": 236
+        },
+        {
+          "type": "bubble",
+          "variant": "think",
+          "text": "(스팸함도\n확인해야 하나?)",
+          "x": 600,
+          "w": 400,
+          "sfx": false,
+          "y": 332
+        },
+        {
+          "type": "caption",
+          "text": "알림 소리만 나면 심장이 철렁",
+          "x": 120,
+          "y": 1196,
+          "w": 840,
+          "sfx": "drip"
+        }
+      ],
+      "reel": {
+        "dur": 4.85,
+        "zoom": [
+          1,
+          1.06
+        ],
+        "focus": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "title": "3일 차: 온갖 상상",
+      "art": "scene:solo/H.sad.tears/none",
+      "layers": [
+        {
+          "type": "bubble",
+          "variant": "think",
+          "text": "(연락 없으면\n떨어진 거겠지…)",
+          "x": 600,
+          "w": 400,
+          "sfx": false,
+          "y": 236
+        },
+        {
+          "type": "bubble",
+          "variant": "think",
+          "text": "(아니야, 오후에\n올 수도 있어)",
+          "x": 80,
+          "w": 400,
+          "sfx": false,
+          "y": 332
+        },
+        {
+          "type": "caption",
+          "text": "혼자 합격과 탈락을 열 번 오갔다",
+          "x": 120,
+          "y": 1196,
+          "w": 840,
+          "sfx": "drip"
+        }
+      ],
+      "reel": {
+        "dur": 4.85,
+        "zoom": [
+          1,
+          1.06
+        ],
+        "focus": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "title": "그때 다람의 전화",
+      "art": "scene:duo/D.happy/H.sad",
+      "layers": [
+        {
+          "type": "bubble",
+          "text": "야, 기다리는 동안\n떡볶이나 먹자!",
+          "x": 60,
+          "w": 500,
+          "tail": "bl",
+          "who": "다람",
+          "y": 236
+        },
+        {
+          "type": "bubble",
+          "text": "…그럴까?",
+          "x": 570,
+          "w": 450,
+          "tail": "br",
+          "who": "햄찌",
+          "y": 332
+        },
+        {
+          "type": "caption",
+          "text": "기다림은 나눠 먹으면 줄어든다",
+          "x": 120,
+          "y": 1196,
+          "w": 840,
+          "sfx": "drip"
+        }
+      ],
+      "reel": {
+        "dur": 4.85,
+        "zoom": [
+          1,
+          1.06
+        ],
+        "focus": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "title": "결과는 내 손 밖의 일",
+      "art": "scene:duo/H.determined.up/D.happy",
+      "layers": [
+        {
+          "type": "bubble",
+          "text": "기다리는 동안\n다음 지원서 쓰자!",
+          "x": 60,
+          "w": 500,
+          "tail": "bl",
+          "who": "햄찌",
+          "y": 236
+        },
+        {
+          "type": "caption",
+          "variant": "sub",
+          "text": "다음 편 ▶ 1분 자기소개 4단 구조",
+          "x": 110,
+          "y": 1062,
+          "w": 860
+        },
+        {
+          "type": "cta",
+          "text": "좋아요와 저장 후, 발표 기다리는 친구에게 공유",
+          "x": 110,
+          "y": 1192,
+          "w": 860
+        }
+      ],
+      "artBox": {
+        "h": 820
+      },
+      "reel": {
+        "dur": 4.85,
+        "zoom": [
+          1,
+          1.06
+        ],
+        "focus": [
+          0.5,
+          0.5
+        ]
+      }
+    }
+  ],
+  "reelEnd": {
+    "text": "다음 편: 1분 자기소개 4단 구조",
+    "cta": "팔로우하고 햄찌랑 같이 버티기",
+    "dur": 2.6
+  },
+  "badge": false,
+  "caption": {
+    "carousel": "합격 발표 기다리는 3일, 여러분은 어떻게 버티세요? 🐹\n결과는 내 손 밖의 일이니까, 기다리는 동안 할 수 있는 일을 해요.\n\n💬 여러분의 이야기도 댓글로 들려주세요\n📌 저장해두고 지칠 때 다시 보기",
+    "reel": "발표 기다리는 3일 취준생은 이래요 🐹 공감되면 저장!\n전체 버전은 프로필 게시물에서 👉"
+  },
+  "hashtags": [
+    "인스타툰",
+    "공감툰",
+    "취준생",
+    "취업준비",
+    "직장인공감",
+    "햄찌의취준일기",
+    "합격발표",
+    "면접후기"
+  ]
+}

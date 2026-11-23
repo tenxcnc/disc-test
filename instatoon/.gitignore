@@ -7,3 +7,6 @@ jobposts/*/out/*.mp4
 jobposts/*/out/reel-project/
 jobposts/*/out/work-*
 episodes/*/out/work-*
+episodes/*/out/reel-small.mp4
+jobposts/*/out/reel-small.mp4
+upload/

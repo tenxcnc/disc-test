@@ -1,0 +1,259 @@
+{
+  "id": "ep016",
+  "no": 16,
+  "series": "햄찌의 취준일기",
+  "type": "공감툰",
+  "hook": "압박 면접에서\n살아남은 썰",
+  "slides": [
+    {
+      "layout": "cover",
+      "title": "면접일지 2화\n압박 질문 받은 날",
+      "sub": "햄찌의 면접일지 #2",
+      "art": "scene:cover/H.shocked.sweat/none",
+      "reel": {
+        "dur": 2.6,
+        "zoom": [
+          1,
+          1.06
+        ],
+        "focus": [
+          0.5,
+          0.6
+        ],
+        "sfx": [
+          [
+            "chime",
+            0.2
+          ]
+        ]
+      }
+    },
+    {
+      "title": "분위기 좋던 면접",
+      "art": "scene:solo/H.happy/none",
+      "layers": [
+        {
+          "type": "bubble",
+          "text": "자소서 잘 봤습니다.",
+          "x": 60,
+          "w": 500,
+          "tail": "bl",
+          "who": "면접관",
+          "y": 236
+        },
+        {
+          "type": "bubble",
+          "variant": "think",
+          "text": "(오, 느낌 좋은데?)",
+          "x": 600,
+          "w": 400,
+          "sfx": false,
+          "y": 332
+        },
+        {
+          "type": "caption",
+          "text": "그때까진 몰랐다",
+          "x": 120,
+          "y": 1196,
+          "w": 840,
+          "sfx": "drip"
+        }
+      ],
+      "reel": {
+        "dur": 4.85,
+        "zoom": [
+          1,
+          1.06
+        ],
+        "focus": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "title": "갑자기 날아온 질문",
+      "art": "scene:solo/H.shocked/none",
+      "layers": [
+        {
+          "type": "bubble",
+          "text": "그런데 공백기\n1년 동안 뭐 했죠?",
+          "x": 60,
+          "w": 500,
+          "tail": "bl",
+          "who": "면접관",
+          "y": 236
+        },
+        {
+          "type": "caption",
+          "text": "심장이 발끝까지 떨어졌다",
+          "x": 120,
+          "y": 1196,
+          "w": 840,
+          "sfx": "drip"
+        }
+      ],
+      "reel": {
+        "dur": 4.1,
+        "zoom": [
+          1,
+          1.06
+        ],
+        "focus": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "title": "머릿속 회의",
+      "art": "scene:solo/H.tired.sweat/none",
+      "layers": [
+        {
+          "type": "bubble",
+          "variant": "think",
+          "text": "(변명할까…\n솔직할까…)",
+          "x": 600,
+          "w": 400,
+          "sfx": false,
+          "y": 236
+        },
+        {
+          "type": "bubble",
+          "variant": "think",
+          "text": "(선배가 그랬지.\n사실 + 배운 점!)",
+          "x": 80,
+          "w": 400,
+          "sfx": false,
+          "y": 332
+        },
+        {
+          "type": "caption",
+          "text": "3초가 3분 같았다",
+          "x": 120,
+          "y": 1196,
+          "w": 840,
+          "sfx": "drip"
+        }
+      ],
+      "reel": {
+        "dur": 4.85,
+        "zoom": [
+          1,
+          1.06
+        ],
+        "focus": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "title": "햄찌의 대답",
+      "art": "scene:solo/H.determined/none",
+      "layers": [
+        {
+          "type": "bubble",
+          "text": "50번 떨어지며\n서류를 고쳤습니다.",
+          "x": 60,
+          "w": 500,
+          "tail": "bl",
+          "who": "햄찌",
+          "y": 236
+        },
+        {
+          "type": "bubble",
+          "text": "그 과정에서 숫자로\n말하는 법을 배웠습니다.",
+          "x": 570,
+          "w": 450,
+          "tail": "br",
+          "who": "햄찌",
+          "y": 332
+        },
+        {
+          "type": "caption",
+          "text": "목소리는 떨렸지만 끝까지 말했다",
+          "x": 120,
+          "y": 1196,
+          "w": 840,
+          "sfx": "drip"
+        }
+      ],
+      "reel": {
+        "dur": 4.85,
+        "zoom": [
+          1,
+          1.06
+        ],
+        "focus": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "title": "압박 질문은 태도를 본다",
+      "art": "scene:solo/H.determined.up/none",
+      "layers": [
+        {
+          "type": "bubble",
+          "text": "떨렸지만\n도망가진 않았다!",
+          "x": 60,
+          "w": 500,
+          "tail": "bl",
+          "who": "햄찌",
+          "y": 236
+        },
+        {
+          "type": "caption",
+          "variant": "sub",
+          "text": "다음 편 ▶ 새해 목표 쪼개기 공식",
+          "x": 110,
+          "y": 1062,
+          "w": 860
+        },
+        {
+          "type": "cta",
+          "text": "좋아요와 저장 후, 압박 질문 썰 댓글로 나누기",
+          "x": 110,
+          "y": 1192,
+          "w": 860
+        }
+      ],
+      "artBox": {
+        "h": 820
+      },
+      "reel": {
+        "dur": 4.85,
+        "zoom": [
+          1,
+          1.06
+        ],
+        "focus": [
+          0.5,
+          0.5
+        ]
+      }
+    }
+  ],
+  "reelEnd": {
+    "text": "다음 편: 새해 목표 쪼개기 공식",
+    "cta": "팔로우하고 햄찌랑 같이 버티기",
+    "dur": 2.6
+  },
+  "badge": false,
+  "caption": {
+    "carousel": "\"공백기 1년 동안 뭐 했죠?\" 이 질문에 심장이 떨어졌어요 🐹\n변명 대신 사실과 배운 점을 말했어요. 압박 질문은 태도를 보는 질문이래요.\n\n💬 여러분의 이야기도 댓글로 들려주세요\n📌 저장해두고 지칠 때 다시 보기",
+    "reel": "압박 면접에서 살아남은 썰 🐹 공감되면 저장!\n전체 버전은 프로필 게시물에서 👉"
+  },
+  "hashtags": [
+    "인스타툰",
+    "공감툰",
+    "취준생",
+    "취업준비",
+    "직장인공감",
+    "햄찌의취준일기",
+    "압박면접",
+    "면접일지"
+  ]
+}

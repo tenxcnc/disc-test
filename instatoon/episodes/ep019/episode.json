@@ -1,0 +1,259 @@
+{
+  "id": "ep019",
+  "no": 19,
+  "series": "햄찌의 취준일기",
+  "type": "공감툰",
+  "hook": "순서만 외웠더니\n면접이 달라졌다",
+  "slides": [
+    {
+      "layout": "cover",
+      "title": "면접일지 3화\n자기소개의 기적",
+      "sub": "햄찌의 면접일지 #3",
+      "art": "scene:cover/H.determined.up/none",
+      "reel": {
+        "dur": 2.6,
+        "zoom": [
+          1,
+          1.06
+        ],
+        "focus": [
+          0.5,
+          0.6
+        ],
+        "sfx": [
+          [
+            "chime",
+            0.2
+          ]
+        ]
+      }
+    },
+    {
+      "title": "세 번째 면접",
+      "art": "scene:solo/H.determined/none",
+      "layers": [
+        {
+          "type": "bubble",
+          "text": "1분 자기소개\n부탁드립니다.",
+          "x": 60,
+          "w": 500,
+          "tail": "bl",
+          "who": "면접관",
+          "y": 236
+        },
+        {
+          "type": "bubble",
+          "variant": "think",
+          "text": "(문장 말고\n순서만 기억하자)",
+          "x": 600,
+          "w": 400,
+          "sfx": false,
+          "y": 332
+        },
+        {
+          "type": "caption",
+          "text": "이번엔 외운 문장이 없다",
+          "x": 120,
+          "y": 1196,
+          "w": 840,
+          "sfx": "drip"
+        }
+      ],
+      "reel": {
+        "dur": 4.85,
+        "zoom": [
+          1,
+          1.06
+        ],
+        "focus": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "title": "한 문장 소개부터",
+      "art": "scene:solo/H.happy.up/none",
+      "layers": [
+        {
+          "type": "bubble",
+          "text": "숫자로 문제를 찾는\n지원자 햄찌입니다.",
+          "x": 60,
+          "w": 500,
+          "tail": "bl",
+          "who": "햄찌",
+          "y": 236
+        },
+        {
+          "type": "caption",
+          "text": "첫 문장이 나오자 다음이 따라왔다",
+          "x": 120,
+          "y": 1196,
+          "w": 840,
+          "sfx": "drip"
+        }
+      ],
+      "reel": {
+        "dur": 4.1,
+        "zoom": [
+          1,
+          1.06
+        ],
+        "focus": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "title": "면접관의 반응",
+      "art": "scene:solo/H.happy/none",
+      "layers": [
+        {
+          "type": "bubble",
+          "text": "방금 말한 경험,\n더 듣고 싶네요.",
+          "x": 60,
+          "w": 500,
+          "tail": "bl",
+          "who": "면접관",
+          "y": 236
+        },
+        {
+          "type": "bubble",
+          "variant": "think",
+          "text": "(질문이… 반갑다?!)",
+          "x": 600,
+          "w": 400,
+          "sfx": false,
+          "y": 332
+        },
+        {
+          "type": "caption",
+          "text": "처음으로 대화 같은 면접이었다",
+          "x": 120,
+          "y": 1196,
+          "w": 840,
+          "sfx": "drip"
+        }
+      ],
+      "reel": {
+        "dur": 4.85,
+        "zoom": [
+          1,
+          1.06
+        ],
+        "focus": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "title": "나오는 길",
+      "art": "scene:duo/H.happy.up/D.happy",
+      "layers": [
+        {
+          "type": "bubble",
+          "text": "나 오늘 처음으로\n안 떨었어!",
+          "x": 60,
+          "w": 500,
+          "tail": "bl",
+          "who": "햄찌",
+          "y": 236
+        },
+        {
+          "type": "bubble",
+          "text": "표정부터 다르네!",
+          "x": 570,
+          "w": 450,
+          "tail": "br",
+          "who": "다람",
+          "y": 332
+        },
+        {
+          "type": "caption",
+          "text": "결과보다 먼저 온 뿌듯함",
+          "x": 120,
+          "y": 1196,
+          "w": 840,
+          "sfx": "drip"
+        }
+      ],
+      "reel": {
+        "dur": 4.85,
+        "zoom": [
+          1,
+          1.06
+        ],
+        "focus": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "title": "준비는 배신하지 않는다",
+      "art": "scene:solo/H.determined.up/none",
+      "layers": [
+        {
+          "type": "bubble",
+          "text": "결과가 어떻든\n오늘은 후회 없다.",
+          "x": 60,
+          "w": 500,
+          "tail": "bl",
+          "who": "햄찌",
+          "y": 236
+        },
+        {
+          "type": "caption",
+          "variant": "sub",
+          "text": "다음 편 ▶ 상반기 공채 준비 로드맵",
+          "x": 110,
+          "y": 1062,
+          "w": 860
+        },
+        {
+          "type": "cta",
+          "text": "좋아요와 저장 후, 면접 앞둔 친구에게 공유",
+          "x": 110,
+          "y": 1192,
+          "w": 860
+        }
+      ],
+      "artBox": {
+        "h": 820
+      },
+      "reel": {
+        "dur": 4.85,
+        "zoom": [
+          1,
+          1.06
+        ],
+        "focus": [
+          0.5,
+          0.5
+        ]
+      }
+    }
+  ],
+  "reelEnd": {
+    "text": "다음 편: 상반기 공채 준비 로드맵",
+    "cta": "팔로우하고 햄찌랑 같이 버티기",
+    "dur": 2.6
+  },
+  "badge": false,
+  "caption": {
+    "carousel": "문장을 외우는 대신 순서만 기억했더니 면접이 대화처럼 흘러갔어요 🐹\n결과가 어떻든 후회 없는 면접이 처음이었어요.\n\n💬 여러분의 이야기도 댓글로 들려주세요\n📌 저장해두고 지칠 때 다시 보기",
+    "reel": "순서만 외웠더니 면접이 달라졌다 🐹 공감되면 저장!\n전체 버전은 프로필 게시물에서 👉"
+  },
+  "hashtags": [
+    "인스타툰",
+    "공감툰",
+    "취준생",
+    "취업준비",
+    "직장인공감",
+    "햄찌의취준일기",
+    "면접후기",
+    "면접일지"
+  ]
+}

@@ -1,0 +1,259 @@
+{
+  "id": "ep007",
+  "no": 7,
+  "series": "햄찌의 취준일기",
+  "type": "공감툰",
+  "hook": "면접 대기실\n다들 이러고 있죠",
+  "slides": [
+    {
+      "layout": "cover",
+      "title": "면접 대기실의\n심장 소리",
+      "sub": "세상에서 가장 긴 10분",
+      "art": "scene:cover/H.shocked/none",
+      "reel": {
+        "dur": 2.6,
+        "zoom": [
+          1,
+          1.06
+        ],
+        "focus": [
+          0.5,
+          0.6
+        ],
+        "sfx": [
+          [
+            "chime",
+            0.2
+          ]
+        ]
+      }
+    },
+    {
+      "title": "도착은 1시간 전",
+      "art": "scene:solo/H.determined/paper",
+      "layers": [
+        {
+          "type": "bubble",
+          "text": "일찍 왔으니까\n여유롭게 복습해야지",
+          "x": 60,
+          "w": 500,
+          "tail": "bl",
+          "who": "햄찌",
+          "y": 236
+        },
+        {
+          "type": "caption",
+          "text": "그리고 복습한 내용이 전부 증발했다",
+          "x": 120,
+          "y": 1196,
+          "w": 840,
+          "sfx": "drip"
+        }
+      ],
+      "reel": {
+        "dur": 4.1,
+        "zoom": [
+          1,
+          1.06
+        ],
+        "focus": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "title": "옆자리 지원자를 보며",
+      "art": "scene:solo/H.shocked/none",
+      "layers": [
+        {
+          "type": "bubble",
+          "variant": "think",
+          "text": "(저분은 왜 저렇게\n여유로워 보이지…)",
+          "x": 600,
+          "w": 400,
+          "sfx": false,
+          "y": 236
+        },
+        {
+          "type": "bubble",
+          "variant": "think",
+          "text": "(나만 떨리나 봐…)",
+          "x": 80,
+          "w": 400,
+          "sfx": false,
+          "y": 332
+        },
+        {
+          "type": "caption",
+          "text": "사실 옆자리도 똑같이 떨고 있다",
+          "x": 120,
+          "y": 1196,
+          "w": 840,
+          "sfx": "drip"
+        }
+      ],
+      "reel": {
+        "dur": 4.85,
+        "zoom": [
+          1,
+          1.06
+        ],
+        "focus": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "title": "머릿속 상황",
+      "art": "scene:solo/H.tired/none",
+      "layers": [
+        {
+          "type": "bubble",
+          "variant": "think",
+          "text": "(1분 자기소개가…\n뭐였더라?)",
+          "x": 600,
+          "w": 400,
+          "sfx": false,
+          "y": 236
+        },
+        {
+          "type": "bubble",
+          "variant": "think",
+          "text": "(내 이름이…\n뭐였더라??)",
+          "x": 80,
+          "w": 400,
+          "sfx": false,
+          "y": 332
+        },
+        {
+          "type": "caption",
+          "text": "긴장하면 이름도 잊는다",
+          "x": 120,
+          "y": 1196,
+          "w": 840,
+          "sfx": "drip"
+        }
+      ],
+      "reel": {
+        "dur": 4.85,
+        "zoom": [
+          1,
+          1.06
+        ],
+        "focus": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "title": "부엉 선배의 문자",
+      "art": "scene:solo/H.sad/phone",
+      "layers": [
+        {
+          "type": "bubble",
+          "text": "떨리는 건 잘하고\n싶다는 증거야.",
+          "x": 60,
+          "w": 500,
+          "tail": "bl",
+          "who": "부엉 선배",
+          "y": 236
+        },
+        {
+          "type": "bubble",
+          "text": "숨 크게 세 번 쉬고\n들어가!",
+          "x": 570,
+          "w": 450,
+          "tail": "br",
+          "who": "부엉 선배",
+          "y": 332
+        },
+        {
+          "type": "caption",
+          "text": "문자 하나에 숨이 쉬어졌다",
+          "x": 120,
+          "y": 1196,
+          "w": 840,
+          "sfx": "drip"
+        }
+      ],
+      "reel": {
+        "dur": 4.85,
+        "zoom": [
+          1,
+          1.06
+        ],
+        "focus": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "title": "\"햄찌 님, 들어오세요\"",
+      "art": "scene:solo/H.determined.up/none",
+      "layers": [
+        {
+          "type": "bubble",
+          "text": "후… 하… 가보자!",
+          "x": 60,
+          "w": 500,
+          "tail": "bl",
+          "who": "햄찌",
+          "y": 236
+        },
+        {
+          "type": "caption",
+          "variant": "sub",
+          "text": "다음 편 ▶ 면접 마지막 질문 답변법",
+          "x": 110,
+          "y": 1062,
+          "w": 860
+        },
+        {
+          "type": "cta",
+          "text": "좋아요와 저장 후, 면접 보는 친구 응원하기",
+          "x": 110,
+          "y": 1192,
+          "w": 860
+        }
+      ],
+      "artBox": {
+        "h": 820
+      },
+      "reel": {
+        "dur": 4.85,
+        "zoom": [
+          1,
+          1.06
+        ],
+        "focus": [
+          0.5,
+          0.5
+        ]
+      }
+    }
+  ],
+  "reelEnd": {
+    "text": "다음 편: 면접 마지막 질문 답변법",
+    "cta": "팔로우하고 햄찌랑 같이 버티기",
+    "dur": 2.6
+  },
+  "badge": false,
+  "caption": {
+    "carousel": "면접 대기실에서 이름까지 까먹을 뻔한 적 있나요? 🐹\n떨리는 건 잘하고 싶다는 증거래요. 숨 크게 세 번 쉬고 들어가요.\n\n💬 여러분의 이야기도 댓글로 들려주세요\n📌 저장해두고 지칠 때 다시 보기",
+    "reel": "면접 대기실 다들 이러고 있죠 🐹 공감되면 저장!\n전체 버전은 프로필 게시물에서 👉"
+  },
+  "hashtags": [
+    "인스타툰",
+    "공감툰",
+    "취준생",
+    "취업준비",
+    "직장인공감",
+    "햄찌의취준일기",
+    "면접",
+    "면접후기"
+  ]
+}
