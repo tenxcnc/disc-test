@@ -7,6 +7,7 @@ import { resolve } from 'node:path';
 import { chromium, ROOT } from './pw.mjs';
 import { slideHtml, slideCss, fontCss, paletteOf, SLIDE_W, SLIDE_H } from './layout.mjs';
 import { EPISODES } from '../season1.mjs';
+import { REEL, CAROUSEL, TAIL } from '../captions.mjs';
 
 const only = process.argv.slice(2).map(Number);
 const SERIES = '햄찌의 취준일기';
@@ -134,6 +135,8 @@ for (const e of EPISODES) {
     for (const L of slide.layers || []) { delete L._below; delete L._gap; delete L._side; }
     delete slide._limit;
   }
+  if (REEL[e.no]) ep.caption.reel = REEL[e.no];
+  if (CAROUSEL[e.no]) ep.caption.carousel = CAROUSEL[e.no] + '\n\n' + TAIL[e.type];
   mkdirSync(epDir, { recursive: true });
   writeFileSync(resolve(epDir, 'episode.json'), JSON.stringify(ep, null, 2) + '\n');
   console.log('생성', ep.id, e.type, e.cover[0].replace('\n', ' '));
