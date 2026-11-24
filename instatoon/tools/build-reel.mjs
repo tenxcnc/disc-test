@@ -17,9 +17,10 @@ const noRender = args.includes('--no-render');
 const ep = loadEpisode(epDir);
 const p = paletteOf(ep);
 const W = 1080, H = 1920;
-const SCALE = 0.84;
+// 인스타 화면에 가려지지 않도록 모든 요소를 화면 위 12% ~ 아래 24% 사이(y 230~1460)에 둡니다.
+const SCALE = 0.755;
 const PX = Math.round((W - SLIDE_W * SCALE) / 2);
-const PY = 455;
+const PY = 440;
 const ENTER = 0.38; // 다음 장면이 밀고 들어오는 시간
 
 const proj = resolve(epDir, 'out/reel-project');
@@ -36,12 +37,13 @@ const f2 = (n) => Math.round(n * 1000) / 1000;
 // ── 타임라인 계산 ──────────────────────────────────────────────
 let t = 0;
 const timeline = ep.slides.map((s, i) => {
-  const dur = s.reel?.dur ?? 3;
+  const cap = s.layout === 'cover' ? 2.2 : s.layout === 'info' ? 3.3 : 3.8; // 전체 길이를 25초 안팎으로
+  const dur = Math.min(s.reel?.dur ?? 3, cap);
   const seg = { i, start: t, dur };
   t += dur;
   return seg;
 });
-const endDur = ep.reelEnd?.dur ?? 2.4;
+const endDur = Math.min(ep.reelEnd?.dur ?? 2.4, 2.3);
 const endStart = t;
 const TOTAL = f2(t + endDur);
 
@@ -86,7 +88,6 @@ timeline.forEach(({ i, start, dur }) => {
 // 상단 훅·진행바·엔딩
 anim.unshift(
   `tl.fromTo('#HOOK',{scale:.6,opacity:0},{scale:1,opacity:1,duration:.45,ease:'back.out(2)'},0);`,
-  `tl.fromTo('#SERIES',{y:-30,opacity:0},{y:0,opacity:1,duration:.35,ease:'power2.out'},.1);`,
   `tl.fromTo('#BAR',{scaleX:0},{scaleX:1,duration:${TOTAL},ease:'none'},0);`
 );
 anim.push(
@@ -137,8 +138,8 @@ html, body { width:${W}px; height:${H}px; overflow:hidden; background:${p.bg2}; 
 .full { position:absolute; inset:0; }
 #SERIES { position:absolute; left:50%; top:150px; transform:translateX(-50%); }
 #SERIES span { display:inline-block; background:${p.accent}; color:#fff; font-size:38px; padding:10px 34px; border-radius:999px; white-space:nowrap; }
-#HOOK { position:absolute; left:40px; right:40px; top:225px; text-align:center; font-size:76px; line-height:1.14; letter-spacing:-1.5px; }
-#BARWRAP { position:absolute; left:${PX}px; width:${Math.round(SLIDE_W * SCALE)}px; top:${PY - 26}px; height:10px; border-radius:6px; background:rgba(0,0,0,.08); overflow:hidden; }
+#HOOK { position:absolute; left:60px; right:60px; top:236px; text-align:center; font-size:74px; line-height:1.14; letter-spacing:-1.5px; }
+#BARWRAP { position:absolute; left:${PX}px; width:${Math.round(SLIDE_W * SCALE)}px; top:${PY - 22}px; height:10px; border-radius:6px; background:rgba(0,0,0,.08); overflow:hidden; }
 #BAR { width:100%; height:100%; background:${p.accent}; transform-origin:0 50%; }
 .pframe { position:absolute; left:${PX}px; top:${PY}px; width:${SLIDE_W}px; height:${SLIDE_H}px; transform:scale(${SCALE}); transform-origin:0 0;
   border-radius:56px; overflow:hidden; box-shadow:0 14px 0 rgba(0,0,0,.08); }
@@ -158,7 +159,6 @@ ${slideCss(p)}
 <body>
 <div id="root" data-composition-id="main" data-start="0" data-duration="${TOTAL}" data-width="${W}" data-height="${H}">
   <div id="TOP" class="clip full" data-start="0" data-duration="${TOTAL}" data-track-index="0" style="z-index:50;pointer-events:none">
-    ${ep.series ? `<div id="SERIES"><span>${esc(ep.series)}${ep.no ? ` EP.${String(ep.no).padStart(2, '0')}` : ''}</span></div>` : ''}
     <div id="HOOK">${esc(ep.hook || ep.slides[0].title)}</div>
     <div id="BARWRAP"><div id="BAR"></div></div>
   </div>

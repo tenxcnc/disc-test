@@ -6,6 +6,6 @@ cd "$(dirname "$0")/.."
 EP="$1"; shift || true
 node tools/render-carousel.mjs "$EP"
 node tools/build-reel.mjs "$EP" "$@"
-# 릴스 커버(프로필 그리드용 3:4 크롭 기준 1080x1440) — 표지 슬라이드를 세로 캔버스에 배치
-ffmpeg -hide_banner -loglevel error -y -ss 1.2 -i "$EP/out/reel.mp4" -frames:v 1 "$EP/out/reel-cover.png"
+# 릴스 커버: 프로필 격자(가운데 3:4)와 피드(가운데 4:5)에서 잘려도 제목이 다 보이는 전용 이미지
+node tools/make-cover.mjs "$EP"
 echo "완료 → $EP/out/ (carousel/, reel.mp4, reel-cover.png, caption-*.txt)"
