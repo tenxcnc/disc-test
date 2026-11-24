@@ -5,6 +5,7 @@ import { resolve, extname } from 'node:path';
 import { sceneSvg } from './scenes.mjs';
 import { PALETTE } from './characters.mjs';
 
+export const HANDLE = '@dailyhamzzi';
 export const SLIDE_W = 1080;
 export const SLIDE_H = 1350;
 
@@ -42,6 +43,7 @@ export function slideCss(p) {
   .s-art{position:absolute;background:#fff;border-radius:48px;overflow:hidden;box-shadow:0 12px 0 ${p.bg2};border:5px solid ${p.bg2}}
   .s-art.bare{background:transparent;box-shadow:none}
   .s-art svg,.s-art img{width:100%;height:100%;display:block;object-fit:cover}
+  .s-wm{position:absolute;right:40px;top:22px;font-size:27px;opacity:.5;letter-spacing:.5px;z-index:5}
   .L{position:absolute}
   .bubble{background:${p.bubble};border:6px solid ${p.line};border-radius:46px;padding:22px 30px;font-size:46px;line-height:1.28;text-align:center}
   .bubble.think{border-style:dashed}
@@ -112,7 +114,7 @@ export function slideHtml(ep, slide, idx, { epDir, mode = 'carousel' } = {}) {
          <div class="s-cover-title">${esc(slide.title)}</div>${slide.sub ? `<div class="s-cover-sub">${esc(slide.sub)}</div>` : ''}`
       : `<div class="s-title">${esc(slide.title || '')}</div>`;
   const layers = (slide.layers || []).map((L, i) => layerHtml(L, i, idx)).join('');
-  return `<div class="slide" id="S${idx}">${artHtml(slide, epDir, mode)}${head}${layers}</div>`;
+  return `<div class="slide" id="S${idx}">${artHtml(slide, epDir, mode)}${head}${layers}<div class="s-wm">${esc(ep.handle || HANDLE)}</div></div>`;
 }
 
 export function loadEpisode(epDir) {

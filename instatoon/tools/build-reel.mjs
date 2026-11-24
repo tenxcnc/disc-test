@@ -5,7 +5,7 @@ import { cpSync, mkdirSync, rmSync, writeFileSync, existsSync } from 'node:fs';
 import { resolve, basename } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { ROOT } from './pw.mjs';
-import { loadEpisode, slideHtml, slideCss, fontCss, paletteOf, SLIDE_W, SLIDE_H } from './layout.mjs';
+import { loadEpisode, slideHtml, slideCss, fontCss, paletteOf, SLIDE_W, SLIDE_H, HANDLE } from './layout.mjs';
 import { hamzzi } from './characters.mjs';
 
 const args = process.argv.slice(2);
@@ -150,6 +150,8 @@ ${slideCss(p)}
   display:flex; flex-direction:column; align-items:center; justify-content:center; gap:34px; text-align:center; }
 #ENDHAM { width:440px; height:440px; }
 #ENDNEXT { font-size:52px; line-height:1.25; padding:0 50px; }
+#ENDHANDLE { font-size:40px; opacity:.7; }
+#ENDHAM { width:380px !important; height:380px !important; }
 #ENDCTA { background:${p.cta || p.ink}; color:#fff; font-size:44px; padding:20px 40px; border-radius:999px; }
 </style>
 </head>
@@ -166,6 +168,7 @@ ${panels}
       <svg id="ENDHAM" viewBox="0 0 400 400">${hamzzi({ expr: 'happy', badge: !!ep.badge })}</svg>
       <div id="ENDNEXT">${esc(ep.reelEnd?.text || '다음 편도 기대해 주세요')}</div>
       <div id="ENDCTA">${esc(ep.reelEnd?.cta || '팔로우하고 다음 편 받기')}</div>
+      <div id="ENDHANDLE">${esc(ep.handle || HANDLE)}</div>
     </div>
   </div>
 ${audioTags}
